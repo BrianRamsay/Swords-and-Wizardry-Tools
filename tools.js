@@ -1,5 +1,3 @@
-var TRADEOUT_CHANCE = 10; // 1 in X chance
-
 function roll(dice, size) {
     dice = Math.max(dice, 0);
     size = Math.max(size, 1);
@@ -23,17 +21,45 @@ function roll_table(table) {
 var Tools = {
 	tables : {},
 	steps : [],
+
 	major_trade : [],
 	medium_trade : [],
 	minor_trade : [],
 
 	base_gold : 0,
 
+	tradeout_chance: 10, // % chance
+	magic_item_chance: 5, // % chance
+
 	init : function tools__init() {
-		this.make_tables();
+		this.set_options();
+		this.make_tables(function() {
+			this.add_events();
+
+			this.modify_magic_item_chance('major');
+			this.modify_magic_item_chance('medium');
+			this.modify_magic_item_chance('minor');
+	
+			$('total_gold').focus();
+		}.bind(this));
+	},
+
+	set_options : function tools__set_options() {
+		this.tradeout_chance = $('tradeout_chance').options[$('tradeout_chance').selectedIndex].value;
+		this.magic_item_chance = $('magic_item_chance').options[$('magic_item_chance').selectedIndex].value;
 	},
 
 	add_events : function tools__add_events() {
+		$('magic_item_chance').addEvent('change', function () {
+			this.set_options();
+			this.modify_magic_item_chance('major');
+			this.modify_magic_item_chance('medium');
+			this.modify_magic_item_chance('minor');
+		}.bind(this));
+		$('tradeout_chance').addEvent('change', function () {
+			this.set_options();
+		}.bind(this));
+
 		$('looter').addEvent('click', function() {
 			$('results').setStyle('display', 'none');
 			this.generate_loot();	
@@ -49,7 +75,7 @@ var Tools = {
 
 		var major_trade_chances = Math.floor(this.base_gold / 5000);
 		for(var i =0; i < major_trade_chances; i++) {
-			if(rand_int(TRADEOUT_CHANCE) === 1) {
+			if(rand_int(100) <= this.tradeout_chance) {
 				this.base_gold -= 5000;
 				this.major_trade.push(roll_table(this.tables.major_tradeout));
 			}
@@ -57,7 +83,7 @@ var Tools = {
 
 		var medium_trade_chances = Math.floor(this.base_gold / 1000);
 		for(var i =0; i < medium_trade_chances; i++) {
-			if(rand_int(TRADEOUT_CHANCE) === 1) {
+			if(rand_int(100) <= this.tradeout_chance) {
 				this.base_gold -= 1000;
 				this.medium_trade.push(roll_table(this.tables.medium_tradeout));
 			}
@@ -65,7 +91,7 @@ var Tools = {
 
 		var minor_trade_chances = Math.floor(this.base_gold / 100);
 		for(var i =0; i < minor_trade_chances; i++) {
-			if(rand_int(TRADEOUT_CHANCE) === 1) {
+			if(rand_int(100) <= this.tradeout_chance) {
 				this.base_gold -= 100;
 				this.minor_trade.push(roll_table(this.tables.minor_tradeout));
 			}
@@ -156,7 +182,7 @@ var Tools = {
 		}
 	}, 
 
-	make_tables : function tools__make_tables() {
+	make_tables : function tools__make_tables(success_func) {
 		new Request.JSON({
 			url: 'tables.json',
 			onError: function(text, wtf) {
@@ -164,9 +190,8 @@ var Tools = {
 			},
 			onSuccess : function(raw_tables) {
 				Object.each(raw_tables, this.parse_table.bind(this), this);
-				this.add_events();
-		
-				$('total_gold').focus();
+
+				success_func();
 			}.bind(this)
 		}).get();	
 	},
@@ -192,11 +217,30 @@ var Tools = {
 			}
 		}
 		this.tables[table_name] = tbl;
-		if(table_name === 'potion') {
-			// create a minor potion table
-			this.tables['minor_potion'] = {source: tbl.source, 
-										   name: 'minor_potion', 
-										   entries: tbl.entries.slice(0,12)};
+
+		// special handling
+		switch(table_name) {
+			case 'potion':
+				// create a minor potion table
+				this.tables['minor_potion'] = {source: tbl.source, 
+											   name: 'minor_potion', 
+											   entries: tbl.entries.slice(0,12)};
+				break;
+		}
+	},
+
+	modify_magic_item_chance : function(which) {
+		var table = this.tables[which + '_tradeout'];
+		var magic_item_slots = Math.floor(this.magic_item_chance / 5);
+		Array.each(table.entries,function(old_entry, idx) {
+			var new_entry = this.map_table_string(table, "Table: " + which + "_gem");
+			if(idx >= 20 - magic_item_slots) {
+				new_entry = this.map_table_string(table, "Table: " + which + "_item");
+			}
+			table.entries[idx] = new_entry;
+		}.bind(this));
+		for(var i = magic_item_slots; i > 0; i--) {
+			var old_entry = table.entries[20 - i];
 		}
 	},
 
@@ -216,8 +260,10 @@ var Tools = {
 				var amt = calc_func();
 				return this.make_item('Gem or jewelry worth ' +  amt + ' gp', table.source, amt);
 			}.bind(this);
-		} else if(table.name === 'potion') {
+		} else if(table.name.contains('potion')) {
 			return function potion_map() { return this.make_item("Potion of " + val, table.source, 15000); }.bind(this);
+		} else if(table.name.contains('scroll')) {
+			return function potion_map() { return this.make_item("Scroll(s): " + val, table.source, 15000); }.bind(this);
 		} else {
 			return function unknown_map() { return this.make_item(val, table.source, 100000); }.bind(this);
 		}

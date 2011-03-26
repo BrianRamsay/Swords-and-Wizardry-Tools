@@ -89,5 +89,35 @@
     "62-64" : "Undead Control pg 99",
     "65-75" : "Extra Healing pg 99",
     "76-12" : "Healing pg 99"
+	},
+
+	"minor_scroll" : {
+		"source" : "Core",
+		"1" : "1 spell, level 1",
+		"2" : "1 spell, level 1d3",
+		"3" : "2 spells, level 1d2 each",
+		"4" : "3 spells, level 1 each",
+		"5" : "Cursed Scroll",
+		"6" : "Protection Scroll (normal duration)"
+	},
+
+	"medium_scroll" : {
+		"source" : "Core",
+		"1" : "2 spells, level 1d4 each",
+		"2" : "2 spells, level 1d8+1 each",
+		"3" : "1 spell, level 1d6+3 each",
+		"4" : "5 spells, level 1d3 each",
+		"5" : "Cursed Scroll",
+		"6" : "Protection Scroll (double duration)"
+	},
+
+	"major_scroll" : {
+		"source" : "Core",
+		"1" : "5 spells, level 1d8 each",
+		"2" : "6 spells, level 1d8 each",
+		"3" : "7 spells, level 1d8 each",
+		"4" : "8 spells, level 1d8 each",
+		"5" : "Cursed Scroll",
+		"6" : "Protection Scroll (triple duration and double effect if applicable)"
 	}
 }

@@ -38,17 +38,46 @@
 						<label for='core'>Core Rules</label>
 					</td>
 					<td>
-						<input type='checkbox' id='arcane' />
+						<input type='checkbox' id='arcane' disabled />
 						<label for='arcane' style='font-size:.9em;'>Use Arcane Articles &amp; Items of Power [<a href="http://swcompanion.wdfiles.com/local--files/resources/mi">link</a>]</label>
+					</td>
+					<td>
+						<select id='tradeout_chance'>
+							<option value="10">10%</option>
+							<option value="15">15%</option>
+							<option value="20">20%</option>
+							<option value="25">25%</option>
+							<option value="30">30%</option>
+							<option value="35">35%</option>
+							<option value="40">40%</option>
+							<option value="45">45%</option>
+							<option value="50">50%</option>
+						</select>
+						<label for='tradeout_chance'>Treasure Chance</label>
 					</td></tr>
-					<tr><td style='padding-right:30px;'>
-						<input type='radio' name='source[]' id='complete' />
+					<tr><td style='padding-right:10px;'>
+						<input type='radio' name='source[]' id='complete' disabled />
 						<label for='complete'>Complete Rules</label>
 					</td>
 					<td>
-						<input type='checkbox' id='describe_jewelry' />
+						<input type='checkbox' id='describe_jewelry' disabled />
 						<label for='describe_jewelry'>Describe Gems/Jewelry/Art</label>
 					</td>
+					<td>
+						<select id='magic_item_chance'>
+							<option value="5">5%</option>
+							<option value="10">10%</option>
+							<option value="15">15%</option>
+							<option value="20">20%</option>
+							<option value="25">25%</option>
+							<option value="30">30%</option>
+							<option value="35">35%</option>
+							<option value="40">40%</option>
+							<option value="45">45%</option>
+							<option value="50">50%</option>
+						</select>
+						<label for='magic_item_chance'>Magic Item Chance</label>
+					</td></tr>
 				</table>
 			</fieldset>
 			<div style="display:none" id='results'>

@@ -5,7 +5,7 @@ body {
 }
 
 body div.page_content {
-	width: 575px;
+	width: 650px;
 	margin:auto;
 }
 
@@ -70,6 +70,7 @@ ul.content {
 fieldset {
 	margin-top:10px;
 	text-align:left;
+	font-size:.8em;
 }
 
 #results {
@@ -89,7 +90,7 @@ fieldset {
 
 #results .treasure {
 	float:left;
-	width: 370px;
+	width: 450px;
 	font-size: .9em;
 	border-right: 1px dashed #b1a37e;
 }
