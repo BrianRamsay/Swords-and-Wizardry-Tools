@@ -82,11 +82,11 @@
 			</fieldset>
 			<div style="display:none" id='results'>
 				<div class='tradeout'>
-					<span class='major'>&nbsp;&nbsp;</span>
+					<span class='key major'>&nbsp;&nbsp;</span>
 					<b>Major Tradeouts: <span id="major_count">0</span></b><br />
-					<span class='medium'>&nbsp;&nbsp;</span>
+					<span class='key medium'>&nbsp;&nbsp;</span>
 					<b>Medium Tradeouts: <span id="medium_count">0</span></b><br />
-					<span class='minor'>&nbsp;&nbsp;</span>
+					<span class='key minor'>&nbsp;&nbsp;</span>
 					<b>Minor Tradeouts: <span id="minor_count">0</span></b>
 				</div>
 				<div class='treasure'>

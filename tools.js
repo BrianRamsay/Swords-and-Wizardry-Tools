@@ -138,7 +138,27 @@ var Tools = {
 					'class' : item.tradeout,
 					'html' : '&nbsp;'
 				});
+				type.addClass('key');
 				row.appendChild(type);
+
+				var type = new Element('td', { 'class' : 'item_type' });
+				var html ='';
+				switch(item.type) {
+					case 'scroll':
+						html = '<img src="images/scroll.gif" />';
+						break;
+					case 'potion':
+						html = '<img src="images/potion.gif" />';
+						break;
+					case 'gem':
+						html = '<img src="images/gem.png" />';
+						break;
+					default:
+						html = '';
+				}
+				type.set('html', html);
+				row.appendChild(type);
+
 				var desc = new Element('td', {'html' : item.description});
 				row.appendChild(desc);
 
@@ -254,18 +274,24 @@ var Tools = {
 			var table_func = this.parse_table_access(table, val);
 			return table_func;
 
-		} else if(val.match(/Gem/)) {
+		} else if(val.contains('Gem')) {
 			var calc_func = this.parse_gold(val);
 			return function gem_jewelry_map() { 
 				var amt = calc_func();
-				return this.make_item('Gem or jewelry worth ' +  amt + ' gp', table.source, amt);
+				return this.make_item('Gem or jewelry worth ' +  amt + ' gp', 'gem', table.source, amt);
 			}.bind(this);
 		} else if(table.name.contains('potion')) {
-			return function potion_map() { return this.make_item("Potion of " + val, table.source, 15000); }.bind(this);
+			return function potion_map() { return this.make_item("Potion of " + val, 'potion', table.source, 15000); }.bind(this);
 		} else if(table.name.contains('scroll')) {
-			return function potion_map() { return this.make_item("Scroll(s): " + val, table.source, 15000); }.bind(this);
+			var prefix = "";
+			if(val.test(/^1/)) {
+				prefix = "Scroll: ";
+			} else if( val.test(/^\d/)) {
+				prefix = "Scrolls: ";
+			}
+			return function scroll_map() { return this.make_item(prefix + val, 'scroll', table.source, 15000); }.bind(this);
 		} else {
-			return function unknown_map() { return this.make_item(val, table.source, 100000); }.bind(this);
+			return function unknown_map() { return this.make_item(val, '', table.source, 100000); }.bind(this);
 		}
 
 	},
@@ -292,13 +318,13 @@ var Tools = {
 				return item;
 			} else {
 				// there's an error - sort to the top
-				return this.make_item(val, table.source, 100000);
+				return this.make_item(val, '', table.source, 100000);
 			}
 		}.bind(this);
 	},
 
-	make_item : function tools__make_item(desc, source, sort, page) {
-		return {description: desc, sort: sort, source: source, page : page};
+	make_item : function tools__make_item(desc, type, source, sort, page) {
+		return {description: desc, type: type, sort: sort, source: source, page : page};
 	},
 
 	parse_gold : function tools__parse_gold(val) {
