@@ -1,4 +1,131 @@
 body {
-		width: 800px;
-		margin:auto;
+	margin-top: 20px;
+	background: white;
+	font:1.1em helvetica,arial,freesans,clean,sans-serif;
+}
+
+body div.page_content {
+	width: 575px;
+	margin:auto;
+}
+
+ul li {
+	list-style:none;
+}
+
+ul {
+	padding:0px;
+	margin:0px;
+}
+
+ul.nav{
+    height:1.5em;
+	text-align:center;
+    border-bottom:1px solid #a49264;
+}
+
+ul.nav li {
+    background-color:#590000;
+    cursor:pointer;
+    padding:4px 15px 4px 15px;
+    border-bottom:none;
+    position:relative;
+    top:1px;
+    margin-right:2px;
+    text-shadow:0 -1px 0 #3e0000;
+    color:#b1a37e;
+	letter-spacing: 1px;
+    border:1px solid #590000;
+	display:inline;
+}
+
+ul.nav li.selected {
+    border:1px solid #a49264;
+    border-bottom:1px solid white;
+	background:white;
+    color:#590000;
+    text-shadow:0 -1px 0 #c4bca8;
+    
+}
+
+ul.content {
+    clear:both;
+	padding:20px 0 0 0;
+	text-align:center;
+}
+
+.treasure_actions {
+	margin-bottom: 10px;
+	font-size:1.2em;
+}
+.treasure_actions input {
+	font-size:1.0em;
+}
+
+#total_gold {
+	width:5em;
+	margin: 0 10px;
+}
+
+fieldset {
+	margin-top:10px;
+	text-align:left;
+}
+
+#results {
+	border-top: 1px dashed #b1a37e;
+	margin-top: 20px;
+}
+
+#results div h4 {
+	margin-bottom: 10px;
+	margin-top: 0;
+}
+
+#results table {
+	border-collapse: collapse;
+	text-align: left;
+}
+
+#results .treasure {
+	float:left;
+	width: 370px;
+	font-size: .9em;
+	border-right: 1px dashed #b1a37e;
+}
+
+#list {
+	width: 100%;
+}
+
+#list img {
+	cursor: pointer;
+}
+
+#list tr.odd {
+	background: #ddd;
+}
+
+#results .tradeout {
+	font-size: .8em;
+	width: 160px;
+	padding: 10px;
+	float: right;
+	text-align: left;
+}
+
+.major {
+	background: #030;
+}
+
+.medium {
+	background: #060;
+}
+
+.minor {
+	background: #6f6;
+}
+
+.note {
+	font-size:.8em;
 }

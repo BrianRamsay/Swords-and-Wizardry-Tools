@@ -1,0 +1,93 @@
+{
+	"minor_tradeout" : {
+	"source" : "Core",
+    "1-19" : "Table: minor_gem",
+    "20" : "Table: minor_item"
+	},
+
+	"medium_tradeout" : {
+	"source" : "Core",
+    "1-19" : "Table: medium_gem",
+    "20" : "Table: medium_item"
+	},
+
+	"major_tradeout" : {
+	"source" : "Core",
+    "1-19" : "Table: major_gem",
+    "20" : "Table: major_item"
+	},
+
+	"minor_gem" : {
+	"source" : "Core",
+    "1" : "Gem: 1d6",
+    "2" : "Gem: 1d100 + 25",
+    "3" : "Gem: 1d100 + 75",
+    "4" : "Gem: 1d1000"
+	},
+
+	"medium_gem" : {
+	"source" : "Core",
+    "1" : "Gem: 1d100",
+    "2" : "Gem: 1d1000 + 250",
+    "3" : "Gem: 1d1000 + 750",
+    "4" : "Gem: 1d10000"
+	},
+
+	"major_gem" : {
+	"source" : "Core",
+    "1" : "Gem: 1d1000",
+    "2" : "Gem: 1d1000 x 8",
+    "3" : "Gem: 1d1000 x 12",
+    "4" : "Gem: 1d1000 x 20"
+	},
+
+	"minor_item" : {
+	"source" : "Core",
+    "1" : "Table: minor_potion",
+    "2" : "Table: minor_scroll",
+    "3" : "Table: minor_weapon_armor",
+    "4" : "Table: minor_misc"
+	},
+
+	"medium_item" : {
+	"source" : "Core",
+    "1" : "Table: potion Qty: 3",
+    "2" : "Table: medium_scroll",
+    "3" : "Table: medium_weapon_armor",
+    "4" : "Table: medium_misc"
+	},
+
+	"major_item" : {
+	"source" : "Core",
+    "1" : "Table: potion Qty: 6",
+    "2" : "Table: major_scroll",
+    "3" : "Table: major_weapon_armor",
+    "4" : "Table: major_misc"
+	},
+
+	"potion" : {
+	"source" : "Core",
+    "1-3" : "Animal Control pg 98",
+    "4-6" : "Clairaudience pg 98",
+    "7-9" : "Clairvoyance pg 98",
+    "10-12" : "Diminution pg 98",
+    "13-15" : "Dragon Control pg 98",
+    "16-18" : "Ethereality pg 98",
+    "19-21" : "Fire Resistance pg 98",
+    "22-24" : "Flying pg 98",
+    "25-27" : "Gaseous Form pg 98",
+    "28-30" : "Giant Strength pg 98",
+    "31-33" : "Growth pg 98",
+    "34-36" : "Heroism pg 98",
+    "37-39" : "Invisibility pg 98",
+    "40-42" : "Invulnerability pg 98",
+    "43-45" : "Levitation pg 98",
+    "46-48" : "Plant Control pg 98",
+    "49-55" : "Poison pg 98",
+    "56-58" : "Slipperiness pg 98",
+    "59-61" : "Treasure Finding pg 98",
+    "62-64" : "Undead Control pg 99",
+    "65-75" : "Extra Healing pg 99",
+    "76-12" : "Healing pg 99"
+	}
+}
