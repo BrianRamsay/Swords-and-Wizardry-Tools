@@ -19,6 +19,7 @@
 
 	"minor_gem" : {
 	"source" : "Core",
+	"item_type" : "gem",
     "1" : "Gem: 1d6",
     "2" : "Gem: 1d100 + 25",
     "3" : "Gem: 1d100 + 75",
@@ -27,6 +28,7 @@
 
 	"medium_gem" : {
 	"source" : "Core",
+	"item_type" : "gem",
     "1" : "Gem: 1d100",
     "2" : "Gem: 1d1000 + 250",
     "3" : "Gem: 1d1000 + 750",
@@ -35,6 +37,7 @@
 
 	"major_gem" : {
 	"source" : "Core",
+	"item_type" : "gem",
     "1" : "Gem: 1d1000",
     "2" : "Gem: 1d1000 x 8",
     "3" : "Gem: 1d1000 x 12",
@@ -67,32 +70,35 @@
 
 	"potion" : {
 	"source" : "Core",
-    "1-3" : "Animal Control pg 98",
-    "4-6" : "Clairaudience pg 98",
-    "7-9" : "Clairvoyance pg 98",
-    "10-12" : "Diminution pg 98",
-    "13-15" : "Dragon Control pg 98",
-    "16-18" : "Ethereality pg 98",
-    "19-21" : "Fire Resistance pg 98",
-    "22-24" : "Flying pg 98",
-    "25-27" : "Gaseous Form pg 98",
-    "28-30" : "Giant Strength pg 98",
-    "31-33" : "Growth pg 98",
-    "34-36" : "Heroism pg 98",
-    "37-39" : "Invisibility pg 98",
-    "40-42" : "Invulnerability pg 98",
-    "43-45" : "Levitation pg 98",
-    "46-48" : "Plant Control pg 98",
-    "49-55" : "Poison pg 98",
-    "56-58" : "Slipperiness pg 98",
-    "59-61" : "Treasure Finding pg 98",
-    "62-64" : "Undead Control pg 99",
-    "65-75" : "Extra Healing pg 99",
-    "76-12" : "Healing pg 99"
+	"item_type" : "potion",
+	"page" : 98,
+    "1-3" : "Animal Control",
+    "4-6" : "Clairaudience",
+    "7-9" : "Clairvoyance",
+    "10-12" : "Diminution",
+    "13-15" : "Dragon Control",
+    "16-18" : "Ethereality",
+    "19-21" : "Fire Resistance",
+    "22-24" : "Flying",
+    "25-27" : "Gaseous Form",
+    "28-30" : "Giant Strength",
+    "31-33" : "Growth",
+    "34-36" : "Heroism",
+    "37-39" : "Invisibility",
+    "40-42" : "Invulnerability",
+    "43-45" : "Levitation",
+    "46-48" : "Plant Control",
+    "49-55" : "Poison",
+    "56-58" : "Slipperiness",
+    "59-61" : "Treasure Finding",
+    "62-64" : "Undead Control",
+    "65-75" : "Extra Healing",
+    "76-12" : "Healing"
 	},
 
 	"minor_scroll" : {
 		"source" : "Core",
+		"item_type" : "scroll",
 		"1" : "1 spell, level 1",
 		"2" : "1 spell, level 1d3",
 		"3" : "2 spells, level 1d2 each",
@@ -103,6 +109,7 @@
 
 	"medium_scroll" : {
 		"source" : "Core",
+		"item_type" : "scroll",
 		"1" : "2 spells, level 1d4 each",
 		"2" : "2 spells, level 1d8+1 each",
 		"3" : "1 spell, level 1d6+3 each",
@@ -113,11 +120,305 @@
 
 	"major_scroll" : {
 		"source" : "Core",
+		"item_type" : "scroll",
 		"1" : "5 spells, level 1d8 each",
 		"2" : "6 spells, level 1d8 each",
 		"3" : "7 spells, level 1d8 each",
 		"4" : "8 spells, level 1d8 each",
 		"5" : "Cursed Scroll",
 		"6" : "Protection Scroll (triple duration and double effect if applicable)"
+	},
+
+	"minor_weapon_armor" : {
+		"source" : "Core",
+		"1" : "Cursed armor or shield",
+		"2" : "+1 missile weapon",
+		"3" : "+1 shield",
+		"4" : "+1 melee weapon",
+		"5" : "+1 armor",
+		"6" : "Cursed weapon"
+	},
+
+	"medium_weapon_armor" : {
+		"source" : "Core",
+		"1" : "+2 missile weapon",
+		"2" : "+2 shield",
+		"3" : "+2 melee weapon",
+		"4" : "+2 armor",
+		"5" : "+2 melee weapon",
+		"6" : "+1 melee weapon with minor ability"
+	},
+
+	"major_weapon_armor" : {
+		"source" : "Core",
+		"1" : "+3 missile weapon",
+		"2" : "+3 melee weapon",
+		"3" : "+3 shield",
+		"4" : "+3 armor",
+		"5" : "Table: unusual_weapon",
+		"6" : "Table: unusual_armor"
+	},
+
+	"unusual_weapon" : {
+		"source" : "Core",
+		"page" : 101,
+		"item_type" : "weapon",
+		"1" : "+1 blunt weapon that destroys undead",
+		"2" : "+1 thrown weapon that returns to hand",
+		"3" : "+1 weapon, extra attack",
+		"4" : "+1, +2 vs particular item_type of foe",
+		"5" : "+1, +4 vs particular item_type of foe",
+		"6" : "+2, +3 vs particular item_type of foe",
+		"7" : "+4 weapon",
+		"8" : "+5 weapon",
+		"9" : "Flaming weapon",
+		"10" : "Freezing weapon",
+		"11" : "Dancing weapon",
+		"12" : "Intelligent weapon"
+	},
+
+	"unusual_armor" : {
+		"source" : "Core",
+		"page" : 100,
+		"item_type" : "armor",
+		"1" : "+4 armor (determine item_type randomly)",
+		"2" : "+4 shield",
+		"3" : "+5 armor (determine item_type randomly)",
+		"4" : "+5 shield",
+		"5" : "Armor of Arrow Deflection",
+		"6" : "Demonic Armor",
+		"7" : "Ethereal Armor",
+		"8" : "Fiery Armor"
+	},
+
+	"minor_misc" : {
+		"source" : "Core",
+		"1" : "Table: lesser_wand",
+		"2" : "Table: lesser_ring",
+		"3-20" : "Table: lesser_misc_magic"
+	},
+
+	"medium_misc" : {
+		"source" : "Core",
+		"1-2" : "Table: lesser_wand",
+		"3" : "Table: greater_wand",
+		"4-5" : "Table: lesser_ring",
+		"6" : "Table: greater_ring",
+		"7-20" : "Table: medium_misc_magic"
+	},
+
+	"major_misc" : {
+		"source" : "Core",
+		"1-2" : "Table: greater_wand",
+		"3-4" : "Table: greater_ring",
+		"5" : "Table: staff",
+		"6-20" : "Table: greater_misc_magic"
+	},
+
+	"lesser_wand" : {
+		"source" : "Core",
+		"item_type" : "wand",
+		"page" : 102,
+		"1-2" : "Spell, level 1, holds 10 charges",
+		"3-4" : "Spell, level 2, holds 5 charges",
+		"5-6" : "Spell, level 3, holds 2 charges"
+	},
+
+	"greater_wand" : {
+		"source" : "Core",
+		"item_type" : "wand",
+		"page" : 102,
+		"1" : "Spell, level 3, holds 10 charges",
+		"2" : "Spell, level 4, holds 10 charges",
+		"3" : "Wand of Detection, enemies",
+		"4" : "Wand of Detection, metal",
+		"5" : "Wand of Detection, magic",
+		"6" : "Wand of Detection, traps & secret doors",
+		"7" : "Wand of Polymorph",
+		"8" : "Wand of Fear",
+		"9" : "Wand of Cold",
+		"10" : "Wand of Paralyzing"
+	},
+
+	"lesser_ring" : {
+		"source" : "Core",
+		"item_type" : "ring",
+		"page" : 102,
+		"1" : "Protection +1",
+		"2" : "Protection +2",
+		"3" : "Invisibility",
+		"4" : "Mammal Control",
+		"5" : "Fire Resistance",
+		"6" : "Poison Resistance"
+	},
+
+	"greater_ring" : {
+		"source" : "Core",
+		"item_type" : "ring",
+		"page" : 102,
+		"1" : "Djinni Summoning",
+		"2" : "Human Control",
+		"3" : "Regeneration",
+		"4" : "Shooting Stars",
+		"5" : "Spell Storing, Magic-user",
+		"6" : "Spell Storing, Cleric",
+		"7" : "Spell Turning",
+		"8" : "Telekinesis",
+		"9" : "Three Wishes",
+		"10" : "X-ray Vision"
+	},
+
+	"staff" : {
+		"source" : "Core",
+		"item_type" : "staff",
+		"page" : 103,
+		"1" : "Absorption",
+		"2" : "Beguiling",
+		"3" : "Command",
+		"4" : "Healing",
+		"5" : "Power",
+		"6" : "Resurrection",
+		"7" : "Snake",
+		"8" : "Striking",
+		"9" : "Withering",
+		"10" : "Wizardry"
+	},
+
+	"lesser_misc_magic" : {
+		"source" : "Core",
+		"item_type" : "magic",
+		"page" : 104,
+		"1" : "Arrow of Direction",
+		"2" : "Bag of Holding",
+		"3" : "Boots of Elvenkind",
+		"4" : "Table: tmp_magic_boots",
+		"5" : "Bracers of Defense, AC 6 [13]",
+		"6" : "Chime of Opening",
+		"7" : "Cloak of Elvenkind",
+		"8" : "Cloak of Protection, +1",
+		"9" : "Table: cursed_item",
+		"10" : "Decanter of Endless Water",
+		"11" : "Table: tmp_magic_dust",
+		"12" : "Dust of Sneezing and Choking",
+		"13" : "Gauntlets of Swimming and Climbing",
+		"14" : "Horseshoes of Speed",
+		"15" : "Luckstone",
+		"16" : "Manual of Beneficial Exercise",
+		"17" : "Pipes of the Sewers",
+		"18" : "Rope of Climbing",
+		"19" : "Rope of Entanglement",
+		"20" : "Spade of Excavation"
+	},
+
+	"cursed_item" : {
+		"source" : "Core",
+		"item_type" : "magic",
+		"page" : 109,
+		"1" : "Bag of Devouring",
+		"2" : "Censer of Hostile Elementals",
+		"3" : "Cloak of Poison",
+		"4" : "Crystal Ball of Suggestion",
+		"5" : "Dancing Boots",
+		"6" : "Flask of Stoppered Curses",
+		"7" : "Horn of Collapse",
+		"8" : "Medallion of Projecting Thoughts",
+		"9" : "Mirror of Opposition",
+		"10" : "Robe of Feeblemindedness"
+	},
+
+	"tmp_magic_boots" : {
+		"source" : "Core",
+		"item_type" : "magic",
+		"page" : 105,
+		"1" : "Boots of Speed",
+		"2" : "Boots of Leaping"
+	},
+
+	"tmp_magic_dust" : {
+		"source" : "Core",
+		"item_type" : "magic",
+		"page" : 106,
+		"1" : "Dust of Appearance",
+		"2" : "Dust of Disappearance"
+	},
+
+	"medium_misc_magic" : {
+		"source" : "Core",
+		"item_type" : "magic",
+		"page" : 104,
+		"1" : "Amulet against Scrying",
+		"2" : "Boots of Flying",
+		"3" : "Table: tmp_magic_bracers",
+		"4" : "Carpet of Flying",
+		"5" : "Cloak of Displacement",
+		"6" : "Table: tmp_magic_cloak",
+		"7" : "Deck of Many Things",
+		"8" : "Figurine of the Onyx Dog",
+		"9" : "Gauntlets of Ogre Power",
+		"10" : "Helm of Reading Magic and Languages",
+		"11" : "Hole, Portable",
+		"12" : "Horn of Valhalla, Bronze",
+		"13" : "Horn of Valhalla, Silver",
+		"14" : "Jug of Alchemy ",
+		"15" : "Manual of Quickness",
+		"16" : "Medallion of ESP",
+		"17" : "Mirror of Mental Scrying",
+		"18" : "Robe of Blending",
+		"19" : "Robe of Eyes",
+		"20" : "Robe of Wizardry"
+	},
+
+	"tmp_magic_bracers" : {
+		"source" : "Core",
+		"item_type" : "magic",
+		"page" : 105,
+		"1" : "Bracers of Defense, AC 4 [15]",
+		"2" : "Bracers of Defense, AC 2 [17]"
+	},
+
+	"tmp_magic_cloak" : {
+		"source" : "Core",
+		"item_type" : "magic",
+		"page" : 105,
+		"1" : "Cloak of Protection +2",
+		"2" : "Cloak of Protection +3"
+	},
+
+	"greater_misc_magic" : {
+		"source" : "Core",
+		"item_type" : "magic",
+		"page" : 104,
+		"1" : "Amulet of Demon Control",
+		"2" : "Beaker of Potions",
+		"3" : "Table: elemental_control",
+		"4" : "Crystal Ball",
+		"5" : "Efreeti Bottle",
+		"6" : "Figurine of the Golden Lions",
+		"7" : "Gauntlets of Dexterity",
+		"8" : "Gem of Seeing",
+		"9" : "Girdle of Giant Strength",
+		"10" : "Helm of Fiery Brilliance",
+		"11" : "Helm of Teleportation",
+		"12" : "Horn of Blasting",
+		"13" : "Horn of Valhalla, Iron",
+		"14" : "Lenses of Charming",
+		"15" : "Libram, Magical (level gain)",
+		"16" : "Manual of Golems",
+		"17" : "Manual of Intelligence",
+		"18" : "Manual of Wisdom",
+		"19" : "Necklace of Fireballs",
+		"20" : "Symbol - Scarab of Insanity"
+	},
+
+	"elemental_control" : {
+		"source" : "Core",
+		"item_type" : "magic",
+		"page" : 105,
+		"1" : "Censer of Controlling Elementals",
+		"2" : "Bowl of Controlling Elementals",
+		"3" : "Brazier of Controlling Elementals",
+		"4" : "Stone of Controlling Elementals"
 	}
+
+
 }

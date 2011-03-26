@@ -39,7 +39,7 @@ var Tools = {
 			this.modify_magic_item_chance('major');
 			this.modify_magic_item_chance('medium');
 			this.modify_magic_item_chance('minor');
-	
+
 			$('total_gold').focus();
 		}.bind(this));
 	},
@@ -66,6 +66,12 @@ var Tools = {
 			$('results').setStyle('display', 'block');
 		}.bind(this));
 	},
+
+	/*****************************************************************
+		Loot Creation and Display
+
+		Methods that drive the creation and display of a hoard.
+	*****************************************************************/
 
 	generate_loot : function tools__generate_loot() {
 		this.base_gold = parseInt($('total_gold').value.replace(',',''), 10);
@@ -109,7 +115,7 @@ var Tools = {
 		this.add_tradeout_items(items, 'minor');
 
 		items.sort(function(a, b) {
-			return b.sort - a.sort; // numerically sort in reverse order
+			return b.item_sort - a.item_sort; // numerically sort in reverse order
 		});
 
 		this.display_item_table(items);
@@ -143,7 +149,7 @@ var Tools = {
 
 				var type = new Element('td', { 'class' : 'item_type' });
 				var html ='';
-				switch(item.type) {
+				switch(item.item_type) {
 					case 'scroll':
 						html = '<img src="images/scroll.gif" />';
 						break;
@@ -152,6 +158,25 @@ var Tools = {
 						break;
 					case 'gem':
 						html = '<img src="images/gem.png" />';
+						break;
+					case 'staff':
+						html = '<img src="images/staff.png" />';
+						break;
+					case 'wand':
+						html = '<img src="images/wand.png" />';
+						break;
+					case 'ring':
+						html = '<img src="images/ring.png" />';
+						break;
+					case 'weapon':
+					case 'melee':
+						html = '<img src="images/sword.png" />';
+						break;
+					case 'missile':
+						html = '<img src="images/bow.png" />';
+						break;
+					case 'magic':
+						html = '<img src="images/magic.gif" />';
 						break;
 					default:
 						html = '';
@@ -202,6 +227,28 @@ var Tools = {
 		}
 	}, 
 
+	/*****************************************************************
+		Table Modification Methods
+
+		These methods help parse the raw tables and generate
+		the anonymous functions.
+	*****************************************************************/
+
+	modify_magic_item_chance : function(which) {
+		var table = this.tables[which + '_tradeout'];
+		var magic_item_slots = Math.floor(this.magic_item_chance / 5);
+		Array.each(table.entries,function(old_entry, idx) {
+			var new_entry = this.map_table_string(table, "Table: " + which + "_gem");
+			if(idx >= 20 - magic_item_slots) {
+				new_entry = this.map_table_string(table, "Table: " + which + "_item");
+			}
+			table.entries[idx] = new_entry;
+		}.bind(this));
+		for(var i = magic_item_slots; i > 0; i--) {
+			var old_entry = table.entries[20 - i];
+		}
+	},
+
 	make_tables : function tools__make_tables(success_func) {
 		new Request.JSON({
 			url: 'tables.json',
@@ -217,14 +264,17 @@ var Tools = {
 	},
 	
 	parse_table : function tools__parse_table(raw_tbl, table_name) {
-		var tbl = {source: '', name: table_name, entries:[]};
+		var tbl = {source: '', type: '', page: '', name: table_name, entries:[]};
+		var special_keys = ['source', 'page', 'item_type'];
+		Object.each(raw_tbl, function(value, key) {
+			if(special_keys.contains(key)) {
+				tbl[key] = raw_tbl[key];
+			}
+		});
 		for(var key in raw_tbl) {
 			if(raw_tbl.hasOwnProperty(key)) {
-				switch(key) {
-					case 'source':
-						tbl.source = raw_tbl[key];;
-						continue;
-						break;
+				if(special_keys.contains(key)) {
+					continue;
 				}
 				if(key.match(/-/)) {
 					var range = key.split('-');
@@ -243,24 +293,11 @@ var Tools = {
 			case 'potion':
 				// create a minor potion table
 				this.tables['minor_potion'] = {source: tbl.source, 
+											   type: 'potion', 
+											   page: tbl.page,
 											   name: 'minor_potion', 
 											   entries: tbl.entries.slice(0,12)};
 				break;
-		}
-	},
-
-	modify_magic_item_chance : function(which) {
-		var table = this.tables[which + '_tradeout'];
-		var magic_item_slots = Math.floor(this.magic_item_chance / 5);
-		Array.each(table.entries,function(old_entry, idx) {
-			var new_entry = this.map_table_string(table, "Table: " + which + "_gem");
-			if(idx >= 20 - magic_item_slots) {
-				new_entry = this.map_table_string(table, "Table: " + which + "_item");
-			}
-			table.entries[idx] = new_entry;
-		}.bind(this));
-		for(var i = magic_item_slots; i > 0; i--) {
-			var old_entry = table.entries[20 - i];
 		}
 	},
 
@@ -274,57 +311,98 @@ var Tools = {
 			var table_func = this.parse_table_access(table, val);
 			return table_func;
 
-		} else if(val.contains('Gem')) {
-			var calc_func = this.parse_gold(val);
-			return function gem_jewelry_map() { 
-				var amt = calc_func();
-				return this.make_item('Gem or jewelry worth ' +  amt + ' gp', 'gem', table.source, amt);
-			}.bind(this);
-		} else if(table.name.contains('potion')) {
-			return function potion_map() { return this.make_item("Potion of " + val, 'potion', table.source, 15000); }.bind(this);
-		} else if(table.name.contains('scroll')) {
-			var prefix = "";
-			if(val.test(/^1/)) {
-				prefix = "Scroll: ";
-			} else if( val.test(/^\d/)) {
-				prefix = "Scrolls: ";
-			}
-			return function scroll_map() { return this.make_item(prefix + val, 'scroll', table.source, 15000); }.bind(this);
-		} else {
-			return function unknown_map() { return this.make_item(val, '', table.source, 100000); }.bind(this);
 		}
+		switch(table.item_type) {
+			case 'gem':
+				var calc_func = this.parse_gold(val);
+				return function gem_jewelry_map() { 
+					var amt = calc_func();
+					return this.make_item(table, 'Gem or jewelry worth ' +  amt + ' gp', amt);
+				}.bind(this);
+				break;
+			case 'potion':
+				return function() { return this.make_item(table, "Potion of " + val, 15000); }.bind(this);
+				break;
+			case 'ring':
+				return function() { return this.make_item(table, "Ring of " + val, 40000); }.bind(this);
+				break;
+			case 'staff':
+				return function() { return this.make_item(table, "Staff of " + val, 50000); }.bind(this);
+				break;
+			case 'magic':
+				var sort_val = 20000;
+				if(table.name.contains('greater') || table.name.contains('elemental')) {
+					sort_val = 45000;
+				} else if (table.name.contains('medium')) {
+					sort_val = 35000;
+				}
+				return function() { return this.make_item(table, val, sort_val); }.bind(this);
+				break;
+			case 'wand':
+				var prefix = "Wand: ";
+				if(val.test(/^Wand/)) {
+					prefix = "";
+				}
+				return function() { return this.make_item(table, prefix + val, 30000); }.bind(this);
+				break;
+			case 'scroll':
+				var prefix = "";
+				if(val.test(/^1/)) {
+					prefix = "Scroll: ";
+				} else if( val.test(/^\d/)) {
+					prefix = "Scrolls: ";
+				}
+				return function() { return this.make_item(table, prefix + val, 15000); }.bind(this);
+				break;
 
+			case 'weapon':
+			case 'armor':
+				return function() { return this.make_item(table, val, 40000); }.bind(this);
+				break;
+
+			default:
+				console.log('ERROR - table.item_type is unknown (' + table.item_type + ') for table ' + table.name + ' in map_table_string');
+				return function unknown_map() { return this.make_item(table, val, 100000); }.bind(this);
+				break;
+		}
 	},
 
 	parse_table_access : function tools__parse_table_access(table, val) {
 		//console.log(val);
 		//console.log(val.match(/Table:\s(\w+)(\s+Qty:\s(\d+))?/));
-		var matches = val.match(/Table:\s(\w+)(\s+Qty:\s(\d+))?/);
+		var matches = Array.clean(val.match(/Table:\s(\w+)(\s+Qty:\s(\d+))?/));
 		var target_table = matches[1];
 		var multiples = (matches.length > 2);
 		var qty = 1;
 		if(multiples) {
-			var qty = matches[3];
+			qty = matches[3];
 		}
 		// TODO switch to AAIP table on % chance
 		return function table_map() { 
-			if(this.tables[target_table]) {
-				var item = roll_table(this.tables[target_table]);
+			var table = this.tables[target_table];
+			if(table) {
+				var item = roll_table(table);
 				for(var i=1; i < qty; i++) {
-					next_item = roll_table(this.tables[target_table]);
+					next_item = roll_table(table);
 					item.description += "<br />" + next_item.description;
 				}
-				item.sort *= qty;
+				item.item_sort *= qty;
 				return item;
 			} else {
 				// there's an error - sort to the top
-				return this.make_item(val, '', table.source, 100000);
+				console.log('ERROR - tried to access table ' + target_table + ' in parse_table_access');
+				return this.make_item(table, val, 100000);
 			}
 		}.bind(this);
 	},
 
-	make_item : function tools__make_item(desc, type, source, sort, page) {
-		return {description: desc, type: type, sort: sort, source: source, page : page};
+	make_item : function tools__make_item(table, desc, sort, page) {
+		var item = {description: desc, 
+					item_type: table.item_type + '', 
+					item_sort: sort, 
+					source: table.source, 
+					page : page};
+		return item;
 	},
 
 	parse_gold : function tools__parse_gold(val) {
