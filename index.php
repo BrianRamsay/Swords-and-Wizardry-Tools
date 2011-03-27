@@ -79,7 +79,7 @@
 				<tr>
 					<td></td>
 					<td>
-						<input type='checkbox' id='return_stingy' disabled />
+						<input type='checkbox' id='return_stingy' />
 						<label for='return_stingy'>Return Small Tradeouts</label>
 					</td>
 					<td>
@@ -114,8 +114,8 @@
 				</div>
 			</div>
 		</li>
-		<li></li>
-		<li></li>
+		<li><h3>Nothing to see here, move along</h3></li>
+		<li><h3>Nothing to see here, move along</h3></li>
 	</ul>
 </div>
 	<script src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.1/mootools-yui-compressed.js"></script>

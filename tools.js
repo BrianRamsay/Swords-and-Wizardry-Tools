@@ -30,6 +30,7 @@ var Tools = {
 
 	tradeout_chance: 10, // % chance
 	magic_item_chance: 5, // % chance
+	return_small_tradeouts: false, 
 
 	init : function tools__init() {
 		this.set_options();
@@ -47,6 +48,8 @@ var Tools = {
 	set_options : function tools__set_options() {
 		this.tradeout_chance = $('tradeout_chance').options[$('tradeout_chance').selectedIndex].value;
 		this.magic_item_chance = $('magic_item_chance').options[$('magic_item_chance').selectedIndex].value;
+
+		this.return_small_tradeouts = $('return_stingy').checked;
 	},
 
 	add_events : function tools__add_events() {
@@ -56,7 +59,12 @@ var Tools = {
 			this.modify_magic_item_chance('medium');
 			this.modify_magic_item_chance('minor');
 		}.bind(this));
+
 		$('tradeout_chance').addEvent('change', function () {
+			this.set_options();
+		}.bind(this));
+
+		$('return_stingy').addEvent('click', function () {
 			this.set_options();
 		}.bind(this));
 
@@ -75,35 +83,30 @@ var Tools = {
 
 	generate_loot : function tools__generate_loot() {
 		this.base_gold = parseInt($('total_gold').value.replace(',',''), 10);
-		this.major_trade = Array.from([]);
-		this.minor_trade = Array.from([]);
-		this.medium_trade = Array.from([]);
 
-		var major_trade_chances = Math.floor(this.base_gold / 5000);
-		for(var i =0; i < major_trade_chances; i++) {
-			if(rand_int(100) <= this.tradeout_chance) {
-				this.base_gold -= 5000;
-				this.major_trade.push(roll_table(this.tables.major_tradeout));
-			}
-		}
-
-		var medium_trade_chances = Math.floor(this.base_gold / 1000);
-		for(var i =0; i < medium_trade_chances; i++) {
-			if(rand_int(100) <= this.tradeout_chance) {
-				this.base_gold -= 1000;
-				this.medium_trade.push(roll_table(this.tables.medium_tradeout));
-			}
-		}
-
-		var minor_trade_chances = Math.floor(this.base_gold / 100);
-		for(var i =0; i < minor_trade_chances; i++) {
-			if(rand_int(100) <= this.tradeout_chance) {
-				this.base_gold -= 100;
-				this.minor_trade.push(roll_table(this.tables.minor_tradeout));
-			}
-		}
+		this.calculate_tradeout(5000, 'major');
+		this.calculate_tradeout(1000, 'medium');
+		this.calculate_tradeout(100, 'minor');
 
 		this.display_loot();
+	},
+
+	calculate_tradeout : function(gold_amount, which) {
+		this[which + '_trade'] = Array.from([]);
+		var trade_chances = Math.floor(this.base_gold / gold_amount);
+		for(var i =0; i < trade_chances; i++) {
+			if(rand_int(100) <= this.tradeout_chance) {
+				var item = roll_table(this.tables[which + '_tradeout']);
+				if(this.return_small_tradeouts && 
+				   item.type == 'gem' && 
+				   item.sort < gold_amount) 
+				{
+					continue;
+				}
+				this.base_gold -= gold_amount;
+				this[which + '_trade'].push(item);
+			}
+		}
 	},
 
 	display_loot : function tools__display_loot() {
@@ -115,7 +118,7 @@ var Tools = {
 		this.add_tradeout_items(items, 'minor');
 
 		items.sort(function(a, b) {
-			return b.item_sort - a.item_sort; // numerically sort in reverse order
+			return b.sort - a.sort; // numerically sort in reverse order
 		});
 
 		this.display_item_table(items);
@@ -410,7 +413,7 @@ var Tools = {
 					next_item = roll_table(new_table);
 					item.description += "<br />" + next_item.description;
 				}
-				item.item_sort *= qty;
+				item.sort *= qty;
 
 				// check if Table block is in the middle
 				// if so, replace the table block with our new item description and use the whole thing
@@ -437,7 +440,7 @@ var Tools = {
 	make_item : function tools__make_item(table, desc, sort, page) {
 		var item = {description: desc, 
 					type: table.type + '', 
-					item_sort: sort, 
+					sort: sort, 
 					source: table.source, 
 					page : page};
 		return this.special_processing(item);
