@@ -31,6 +31,7 @@ var Tools = {
 	tradeout_chance: 10, // % chance
 	magic_item_chance: 5, // % chance
 	return_small_tradeouts: false, 
+	use_arcane_chance: 0,  // % chance of using Arcane Articles and Items of Power
 
 	init : function tools__init() {
 		this.set_options();
@@ -50,6 +51,12 @@ var Tools = {
 		this.magic_item_chance = $('magic_item_chance').options[$('magic_item_chance').selectedIndex].value;
 
 		this.return_small_tradeouts = $('return_stingy').checked;
+
+		if($('arcane').checked) {
+			this.use_arcane_supplement = $('aaip_chance').options[$('aaip_chance').selectedIndex].value;
+		} else {
+			this.use_arcane_supplement = 0;
+		}
 	},
 
 	add_events : function tools__add_events() {
@@ -61,6 +68,15 @@ var Tools = {
 		}.bind(this));
 
 		$('tradeout_chance').addEvent('change', function () {
+			this.set_options();
+		}.bind(this));
+
+		$('aaip_chance').addEvent('change', function () {
+			this.set_options();
+		}.bind(this));
+
+		$('arcane').addEvent('click', function () {
+			$('aaip_chance').disabled = $('arcane').checked ? '' : 'disabled';
 			this.set_options();
 		}.bind(this));
 

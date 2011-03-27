@@ -40,7 +40,7 @@
 					<td colspan="2">
 						<input type='checkbox' id='arcane' disabled />
 						<label for='arcane' style='font-size:.9em;'>Use Arcane Articles &amp; Items of Power [<a href="http://swcompanion.wdfiles.com/local--files/resources/mi">link</a>] at this frequency</label>
-						<select id='aaip_chance'>
+						<select id='aaip_chance' disabled>
 							<option value="25">25%</option>
 							<option value="30">30%</option>
 							<option value="35">35%</option>
