@@ -147,41 +147,9 @@ var Tools = {
 				type.addClass('key');
 				row.appendChild(type);
 
-				var type = new Element('td', { 'class' : 'item_type' });
-				var html ='';
-				switch(item.item_type) {
-					case 'scroll':
-						html = '<img src="images/scroll.gif" />';
-						break;
-					case 'potion':
-						html = '<img src="images/potion.gif" />';
-						break;
-					case 'gem':
-						html = '<img src="images/gem.png" />';
-						break;
-					case 'staff':
-						html = '<img src="images/staff.png" />';
-						break;
-					case 'wand':
-						html = '<img src="images/wand.png" />';
-						break;
-					case 'ring':
-						html = '<img src="images/ring.png" />';
-						break;
-					case 'weapon':
-					case 'melee':
-						html = '<img src="images/sword.png" />';
-						break;
-					case 'missile':
-						html = '<img src="images/bow.png" />';
-						break;
-					case 'magic':
-						html = '<img src="images/magic.gif" />';
-						break;
-					default:
-						html = '';
-				}
-				type.set('html', html);
+				var type = new Element('td', { 'class' : 'type' });
+				type.setStyle('width', '25px');
+				type.set('html', this.image_from_type(item));
 				row.appendChild(type);
 
 				var desc = new Element('td', {'html' : item.description});
@@ -196,6 +164,7 @@ var Tools = {
 					var new_item = roll_table(this.tables[item.tradeout + '_tradeout']);
 					items.splice(idx, 1, new_item);
 					desc.set('html', new_item.description);
+					type.set('html', this.image_from_type(new_item));
 				}.bind(this));
 				reload.appendChild(reload_img);
 				row.appendChild(reload);
@@ -226,6 +195,52 @@ var Tools = {
 			}.bind(this));
 		}
 	}, 
+
+	image_from_type : function(item) {
+		switch(item.type) {
+			case 'scroll':
+				filename = 'scroll.gif';
+				break;
+			case 'potion':
+				filename = 'potion.gif';
+				break;
+			case 'gem':
+				filename = 'gem.png';
+				break;
+			case 'staff':
+				filename = 'staff.png';
+				break;
+			case 'wand':
+				filename = 'wand.png';
+				break;
+			case 'ring':
+				filename = 'ring.png';
+				break;
+			case 'armor':
+				filename = 'shield.gif';
+				break;
+			case 'weapon':
+			case 'melee_weapon':
+				filename = 'sword.png';
+				break;
+			case 'missile_weapon':
+				filename = 'bow.png';
+				break;
+			case 'magic_item':
+				filename = 'magic.gif';
+				break;
+			default:
+				if(item.description.contains('Shield')) {
+					filename = 'shield.gif';
+				} else {
+					console.log("ERROR - Unknown type (" + item.type + ")");
+					filename = '';
+				}
+		}
+		
+		var title = item.type.replace('_', ' ').capitalize();
+		return '<img class="icon" src="images/' + filename + '" alt="'+title+'" title="'+title+'" />';
+	},
 
 	/*****************************************************************
 		Table Modification Methods
@@ -265,7 +280,7 @@ var Tools = {
 	
 	parse_table : function tools__parse_table(raw_tbl, table_name) {
 		var tbl = {source: '', type: '', page: '', name: table_name, entries:[]};
-		var special_keys = ['source', 'page', 'item_type'];
+		var special_keys = ['source', 'page', 'type'];
 		Object.each(raw_tbl, function(value, key) {
 			if(special_keys.contains(key)) {
 				tbl[key] = raw_tbl[key];
@@ -312,7 +327,7 @@ var Tools = {
 			return table_func;
 
 		}
-		switch(table.item_type) {
+		switch(table.type) {
 			case 'gem':
 				var calc_func = this.parse_gold(val);
 				return function gem_jewelry_map() { 
@@ -329,7 +344,7 @@ var Tools = {
 			case 'staff':
 				return function() { return this.make_item(table, "Staff of " + val, 50000); }.bind(this);
 				break;
-			case 'magic':
+			case 'magic_item':
 				var sort_val = 20000;
 				if(table.name.contains('greater') || table.name.contains('elemental')) {
 					sort_val = 45000;
@@ -357,11 +372,18 @@ var Tools = {
 
 			case 'weapon':
 			case 'armor':
+			case 'melee_weapon':
 				return function() { return this.make_item(table, val, 40000); }.bind(this);
 				break;
 
+			case 'missile_weapon':
+				return function() { return this.make_item(table, val, 35000); }.bind(this);
+				break;
+
 			default:
-				console.log('ERROR - table.item_type is unknown (' + table.item_type + ') for table ' + table.name + ' in map_table_string');
+				if(!table.name.test('weapon_armor')) {
+					console.log('ERROR - table.type is unknown (' + table.type + ') for table ' + table.name + ' in map_table_string');
+				}
 				return function unknown_map() { return this.make_item(table, val, 100000); }.bind(this);
 				break;
 		}
@@ -379,14 +401,29 @@ var Tools = {
 		}
 		// TODO switch to AAIP table on % chance
 		return function table_map() { 
-			var table = this.tables[target_table];
-			if(table) {
-				var item = roll_table(table);
+			var new_table = this.tables[target_table];
+			if(new_table) {
+				var item = roll_table(new_table);
 				for(var i=1; i < qty; i++) {
-					next_item = roll_table(table);
+					next_item = roll_table(new_table);
 					item.description += "<br />" + next_item.description;
 				}
 				item.item_sort *= qty;
+
+				// check if Table block is in the middle
+				// if so, replace the table block with our new item description and use the whole thing
+				if(!val.test(/^Table/)) {
+					item.description = val.replace(/<Table: \w+>/, item.description);	
+
+					item.page = table.page || item.page; // the old page is probably more useful here
+
+					// special hack to switch modifier with # of missile ammo
+					if(new_table.type === 'missile_weapon') {
+						item.description = item.description.replace(/(\+\d) (\d+)/, "$2 $1");
+						console.log(item.description.match(/(+\d) (\d+)/));
+					}
+				}
+
 				return item;
 			} else {
 				// there's an error - sort to the top
@@ -398,12 +435,28 @@ var Tools = {
 
 	make_item : function tools__make_item(table, desc, sort, page) {
 		var item = {description: desc, 
-					item_type: table.item_type + '', 
+					type: table.type + '', 
 					item_sort: sort, 
 					source: table.source, 
 					page : page};
+		return this.special_processing(item);
+	},
+
+	special_processing : function(item) {
+		if(item.type == 'missile_weapon') {
+			// roll the dice
+			var matches = item.description.match(/(\d+)d(\d+)/);
+			if(matches[1]) {
+				var count = roll(matches[1], matches[2]);
+
+				// put the numbers in
+				item.description = item.description.replace(/\d+d\d+/, count);
+			}
+		}
+
 		return item;
 	},
+
 
 	parse_gold : function tools__parse_gold(val) {
 		var desc = val.replace(/Gem:\s+/, '');

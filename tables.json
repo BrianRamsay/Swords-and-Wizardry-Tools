@@ -19,7 +19,7 @@
 
 	"minor_gem" : {
 	"source" : "Core",
-	"item_type" : "gem",
+	"type" : "gem",
     "1" : "Gem: 1d6",
     "2" : "Gem: 1d100 + 25",
     "3" : "Gem: 1d100 + 75",
@@ -28,7 +28,7 @@
 
 	"medium_gem" : {
 	"source" : "Core",
-	"item_type" : "gem",
+	"type" : "gem",
     "1" : "Gem: 1d100",
     "2" : "Gem: 1d1000 + 250",
     "3" : "Gem: 1d1000 + 750",
@@ -37,7 +37,7 @@
 
 	"major_gem" : {
 	"source" : "Core",
-	"item_type" : "gem",
+	"type" : "gem",
     "1" : "Gem: 1d1000",
     "2" : "Gem: 1d1000 x 8",
     "3" : "Gem: 1d1000 x 12",
@@ -70,7 +70,7 @@
 
 	"potion" : {
 	"source" : "Core",
-	"item_type" : "potion",
+	"type" : "potion",
 	"page" : 98,
     "1-3" : "Animal Control",
     "4-6" : "Clairaudience",
@@ -98,97 +98,214 @@
 
 	"minor_scroll" : {
 		"source" : "Core",
-		"item_type" : "scroll",
+		"type" : "scroll",
+		"page" : 99,
 		"1" : "1 spell, level 1",
 		"2" : "1 spell, level 1d3",
 		"3" : "2 spells, level 1d2 each",
 		"4" : "3 spells, level 1 each",
 		"5" : "Cursed Scroll",
-		"6" : "Protection Scroll (normal duration)"
+		"6" : "Protection from <Table: protection_scroll> scroll (normal duration)"
+	},
+
+	"protection_scroll" : {
+		"source" : "Core",
+		"type" : "scroll",
+		"page" : 99,
+		"1" : "Demons",
+		"2" : "Drowning",
+		"3" : "Elementals",
+		"4" : "Magic",
+		"5" : "Metal",
+		"6" : "Poison",
+		"7" : "Undead",
+		"8" : "Were-creatures"
 	},
 
 	"medium_scroll" : {
 		"source" : "Core",
-		"item_type" : "scroll",
+		"type" : "scroll",
 		"1" : "2 spells, level 1d4 each",
 		"2" : "2 spells, level 1d8+1 each",
 		"3" : "1 spell, level 1d6+3 each",
 		"4" : "5 spells, level 1d3 each",
 		"5" : "Cursed Scroll",
-		"6" : "Protection Scroll (double duration)"
+		"6" : "Protection from <Table: protection_scroll> Scroll (double duration)"
 	},
 
 	"major_scroll" : {
 		"source" : "Core",
-		"item_type" : "scroll",
+		"type" : "scroll",
 		"1" : "5 spells, level 1d8 each",
 		"2" : "6 spells, level 1d8 each",
 		"3" : "7 spells, level 1d8 each",
 		"4" : "8 spells, level 1d8 each",
 		"5" : "Cursed Scroll",
-		"6" : "Protection Scroll (triple duration and double effect if applicable)"
+		"6" : "Protection from <Table: protection_scroll> Scroll (triple duration and double effect if applicable)"
 	},
 
 	"minor_weapon_armor" : {
 		"source" : "Core",
-		"1" : "Cursed armor or shield",
-		"2" : "+1 missile weapon",
-		"3" : "+1 shield",
-		"4" : "+1 melee weapon",
-		"5" : "+1 armor",
-		"6" : "Cursed weapon"
+		"page" : 99,
+		"1" : "Table: cursed_armor",
+		"2" : "+1 <Table: magic_missile>",
+		"3" : "+1 Shield",
+		"4" : "+1 <Table: magic_melee>",
+		"5" : "+1 <Table: armor>",
+		"6" : "Table: cursed_weapon"
 	},
 
 	"medium_weapon_armor" : {
 		"source" : "Core",
-		"1" : "+2 missile weapon",
-		"2" : "+2 shield",
-		"3" : "+2 melee weapon",
-		"4" : "+2 armor",
-		"5" : "+2 melee weapon",
-		"6" : "+1 melee weapon with minor ability"
+		"page" : 99,
+		"1" : "+2 <Table: magic_missile>",
+		"2" : "+2 Shield",
+		"3" : "+2 <Table: magic_melee>",
+		"4" : "+2 <Table: armor>",
+		"5" : "+2 <Table: magic_melee>",
+		"6" : "+1 <Table: magic_melee> with minor ability"
 	},
 
 	"major_weapon_armor" : {
 		"source" : "Core",
-		"1" : "+3 missile weapon",
-		"2" : "+3 melee weapon",
-		"3" : "+3 shield",
-		"4" : "+3 armor",
+		"page" : 99,
+		"1" : "+3 <Table: magic_missile>",
+		"2" : "+3 <Table: magic_melee>",
+		"3" : "+3 Shield",
+		"4" : "+3 <Table: armor>",
 		"5" : "Table: unusual_weapon",
 		"6" : "Table: unusual_armor"
+	},
+
+	"weapon_ability" : {
+		"source" : "Core",
+		"page" : 100,
+		"type" : "weapon",
+		"1-5" : "Additional +1 damage",
+		"6" : "Sheds light, 15 ft radius",
+		"7" : "Sheds light, 30 ft radius",
+		"8" : "Inflicts additional +4 damage against a particular opponent type (undead, dragons, demons, giants, etc)"
+	},
+
+	"cursed_weapon" : {
+		"source" : "Core",
+		"type" : "weapon",
+		"1-2" : "-1 Cursed <Table: magic_melee>",
+		"3-4" : "-2 Cursed <Table: magic_melee>",
+		"5" : "-3 Cursed <Table: magic_melee>",
+		"6" : "Cursed <Table: magic_melee>: Attracts missiles (even those fired at others nearby),and grants +1 to hit on such missiles",
+		"7" : "Cursed <Table: magic_melee>: Causes bearer to run away from combat",
+		"8" : "Cursed <Table: magic_melee>: Causes bearer to charge into combat"
+	},
+
+	"cursed_armor" : {
+		"source" : "Core",
+		"type" : "armor",
+		"page" : 100,
+		"1-2" : "-1 Cursed <Table: armor_or_shield>",
+		"3-4" : "-2 Cursed <Table: armor_or_shield>",
+		"5" : "-3 Cursed <Table: armor_or_shield>",
+		"6" : "Cursed <Table: armor_or_shield>: Attracts missiles (even those fired at others nearby),and grants +1 to hit on such missiles",
+		"7" : "Cursed <Table: armor_or_shield>: Causes bearer to run away from combat",
+		"8" : "Cursed <Table: armor_or_shield>: Causes bearer to charge into combat"
+	},
+
+	"armor" : {
+		"source" : "Core",
+		"type" : "armor",
+		"page" : 13,
+		"1" : "Chain Mail",
+		"2" : "Leather Armor",
+		"3" : "Plate Mail",
+		"4" : "Ring Mail"
+	},
+
+	"armor_or_shield" : {
+		"source" : "Core",
+		"type" : "armor",
+		"page" : 13,
+		"1" : "Chain Mail",
+		"2" : "Leather Armor",
+		"3" : "Plate Mail",
+		"4" : "Ring Mail",
+		"5" : "Shield"
+	},
+
+	"magic_melee" : {
+		"source" : "Core",
+		"type" : "melee_weapon",
+		"1" : "Battle Axe",
+		"2" : "Hand Axe",
+		"3" : "Dagger",
+		"4" : "War Hammer",
+		"5" : "Lance",
+		"6" : "Mace (heavy)",
+		"7" : "Mace (light)",
+		"8" : "Spear",
+		"9" : "Staff",
+		"10" : "Longsword",
+		"11" : "Short Sword",
+		"12" : "Two-handed Sword"
+	},
+
+	"blunt_weapon" : {
+		"source" : "Core",
+		"type" : "weapon",
+		"1" : "War Hammer",
+		"2" : "Mace (heavy)",
+		"3" : "Mace (light)",
+		"4" : "Staff",
+		"5" : "Sling"
+	},
+
+	"thrown_weapon" : {
+		"source" : "Core",
+		"type" : "weapon",
+		"1" : "Hand Axe",
+		"2" : "Javelin",
+		"3" : "Hammer"
+	},
+
+	"magic_missile" : {
+		"source" : "Core",
+		"type" : "missile_weapon",
+		"1-8" : "2d6 arrows",
+		"9-10" : "1d6 sling stones",
+		"11" : "1 javelin",
+		"12-15" : "2d4 darts",
+		"16-20" : "2d6 crossbow bolts"
 	},
 
 	"unusual_weapon" : {
 		"source" : "Core",
 		"page" : 101,
-		"item_type" : "weapon",
-		"1" : "+1 blunt weapon that destroys undead",
-		"2" : "+1 thrown weapon that returns to hand",
-		"3" : "+1 weapon, extra attack",
-		"4" : "+1, +2 vs particular item_type of foe",
-		"5" : "+1, +4 vs particular item_type of foe",
-		"6" : "+2, +3 vs particular item_type of foe",
-		"7" : "+4 weapon",
-		"8" : "+5 weapon",
-		"9" : "Flaming weapon",
-		"10" : "Freezing weapon",
-		"11" : "Dancing weapon",
-		"12" : "Intelligent weapon"
+		"type" : "weapon",
+		"1" : "+1 <Table: blunt_weapon> that destroys undead",
+		"2" : "+1 <Table: thrown_weapon> that returns to hand",
+		"3" : "+1 <Table: magic_melee>, extra attack",
+		"4" : "+1, +2 <Table: magic_melee> vs particular type of foe",
+		"5" : "+1, +4 <Table: magic_melee> vs particular type of foe",
+		"6" : "+2, +3 <Table: magic_melee> vs particular type of foe",
+		"7" : "+4 <Table: magic_melee>",
+		"8" : "+5 <Table: magic_melee>",
+		"9" : "Flaming <Table: magic_melee>",
+		"10" : "Freezing <Table: magic_melee>",
+		"11" : "Dancing <Table: magic_melee>",
+		"12" : "Intelligent <Table: magic_melee>"
 	},
 
 	"unusual_armor" : {
 		"source" : "Core",
 		"page" : 100,
-		"item_type" : "armor",
-		"1" : "+4 armor (determine item_type randomly)",
-		"2" : "+4 shield",
-		"3" : "+5 armor (determine item_type randomly)",
-		"4" : "+5 shield",
-		"5" : "Armor of Arrow Deflection",
-		"6" : "Demonic Armor",
+		"type" : "armor",
+		"1" : "+4 <Table: armor>",
+		"2" : "+4 Shield",
+		"3" : "+5 <Table: armor>",
+		"4" : "+5 Shield",
+		"5" : "<Table: armor_or_shield> of Arrow Deflection",
+		"6" : "Demonic <Table: armor>",
 		"7" : "Ethereal Armor",
-		"8" : "Fiery Armor"
+		"8" : "Fiery <Table: armor>"
 	},
 
 	"minor_misc" : {
@@ -217,7 +334,7 @@
 
 	"lesser_wand" : {
 		"source" : "Core",
-		"item_type" : "wand",
+		"type" : "wand",
 		"page" : 102,
 		"1-2" : "Spell, level 1, holds 10 charges",
 		"3-4" : "Spell, level 2, holds 5 charges",
@@ -226,7 +343,7 @@
 
 	"greater_wand" : {
 		"source" : "Core",
-		"item_type" : "wand",
+		"type" : "wand",
 		"page" : 102,
 		"1" : "Spell, level 3, holds 10 charges",
 		"2" : "Spell, level 4, holds 10 charges",
@@ -242,7 +359,7 @@
 
 	"lesser_ring" : {
 		"source" : "Core",
-		"item_type" : "ring",
+		"type" : "ring",
 		"page" : 102,
 		"1" : "Protection +1",
 		"2" : "Protection +2",
@@ -254,7 +371,7 @@
 
 	"greater_ring" : {
 		"source" : "Core",
-		"item_type" : "ring",
+		"type" : "ring",
 		"page" : 102,
 		"1" : "Djinni Summoning",
 		"2" : "Human Control",
@@ -270,7 +387,7 @@
 
 	"staff" : {
 		"source" : "Core",
-		"item_type" : "staff",
+		"type" : "staff",
 		"page" : 103,
 		"1" : "Absorption",
 		"2" : "Beguiling",
@@ -286,7 +403,7 @@
 
 	"lesser_misc_magic" : {
 		"source" : "Core",
-		"item_type" : "magic",
+		"type" : "magic_item",
 		"page" : 104,
 		"1" : "Arrow of Direction",
 		"2" : "Bag of Holding",
@@ -295,7 +412,7 @@
 		"5" : "Bracers of Defense, AC 6 [13]",
 		"6" : "Chime of Opening",
 		"7" : "Cloak of Elvenkind",
-		"8" : "Cloak of Protection, +1",
+		"8" : "Cloak of Protection +1",
 		"9" : "Table: cursed_item",
 		"10" : "Decanter of Endless Water",
 		"11" : "Table: tmp_magic_dust",
@@ -312,7 +429,7 @@
 
 	"cursed_item" : {
 		"source" : "Core",
-		"item_type" : "magic",
+		"type" : "magic_item",
 		"page" : 109,
 		"1" : "Bag of Devouring",
 		"2" : "Censer of Hostile Elementals",
@@ -328,7 +445,7 @@
 
 	"tmp_magic_boots" : {
 		"source" : "Core",
-		"item_type" : "magic",
+		"type" : "magic_item",
 		"page" : 105,
 		"1" : "Boots of Speed",
 		"2" : "Boots of Leaping"
@@ -336,7 +453,7 @@
 
 	"tmp_magic_dust" : {
 		"source" : "Core",
-		"item_type" : "magic",
+		"type" : "magic_item",
 		"page" : 106,
 		"1" : "Dust of Appearance",
 		"2" : "Dust of Disappearance"
@@ -344,7 +461,7 @@
 
 	"medium_misc_magic" : {
 		"source" : "Core",
-		"item_type" : "magic",
+		"type" : "magic_item",
 		"page" : 104,
 		"1" : "Amulet against Scrying",
 		"2" : "Boots of Flying",
@@ -370,7 +487,7 @@
 
 	"tmp_magic_bracers" : {
 		"source" : "Core",
-		"item_type" : "magic",
+		"type" : "magic_item",
 		"page" : 105,
 		"1" : "Bracers of Defense, AC 4 [15]",
 		"2" : "Bracers of Defense, AC 2 [17]"
@@ -378,7 +495,7 @@
 
 	"tmp_magic_cloak" : {
 		"source" : "Core",
-		"item_type" : "magic",
+		"type" : "magic_item",
 		"page" : 105,
 		"1" : "Cloak of Protection +2",
 		"2" : "Cloak of Protection +3"
@@ -386,7 +503,7 @@
 
 	"greater_misc_magic" : {
 		"source" : "Core",
-		"item_type" : "magic",
+		"type" : "magic_item",
 		"page" : 104,
 		"1" : "Amulet of Demon Control",
 		"2" : "Beaker of Potions",
@@ -412,7 +529,7 @@
 
 	"elemental_control" : {
 		"source" : "Core",
-		"item_type" : "magic",
+		"type" : "magic_item",
 		"page" : 105,
 		"1" : "Censer of Controlling Elementals",
 		"2" : "Bowl of Controlling Elementals",

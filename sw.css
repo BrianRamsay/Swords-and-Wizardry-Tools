@@ -103,6 +103,11 @@ fieldset {
 	cursor: pointer;
 }
 
+#list img.icon {
+	margin-left:5px;
+	cursor: auto;
+}
+
 #list tr.odd {
 	background: #ddd;
 }
