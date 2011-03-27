@@ -450,7 +450,7 @@ var Tools = {
 		if(item.type == 'missile_weapon') {
 			// roll the dice
 			var matches = item.description.match(/(\d+)d(\d+)/);
-			if(matches[1]) {
+			if(matches) {
 				var count = roll(matches[1], matches[2]);
 
 				// put the numbers in
