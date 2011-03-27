@@ -202,7 +202,7 @@ var Tools = {
 				filename = 'scroll.gif';
 				break;
 			case 'potion':
-				filename = 'potion.gif';
+				filename = 'potion.png';
 				break;
 			case 'gem':
 				filename = 'gem.png';
@@ -217,7 +217,10 @@ var Tools = {
 				filename = 'ring.png';
 				break;
 			case 'armor':
-				filename = 'shield.gif';
+				filename = 'armor.png';
+				if(item.description.test('shield','i')) {
+					filename = 'shield.gif';
+				}
 				break;
 			case 'weapon':
 			case 'melee_weapon':
@@ -390,14 +393,13 @@ var Tools = {
 	},
 
 	parse_table_access : function tools__parse_table_access(table, val) {
-		//console.log(val);
-		//console.log(val.match(/Table:\s(\w+)(\s+Qty:\s(\d+))?/));
-		var matches = Array.clean(val.match(/Table:\s(\w+)(\s+Qty:\s(\d+))?/));
+		var matches = val.match(/Table:\s(\w+)/);
 		var target_table = matches[1];
-		var multiples = (matches.length > 2);
+
 		var qty = 1;
-		if(multiples) {
-			qty = matches[3];
+		var has_qty = val.match(/Qty:\s(\d+)/);
+		if(has_qty) {
+			qty = has_qty[1];
 		}
 		// TODO switch to AAIP table on % chance
 		return function table_map() { 
@@ -412,7 +414,7 @@ var Tools = {
 
 				// check if Table block is in the middle
 				// if so, replace the table block with our new item description and use the whole thing
-				if(!val.test(/^Table/)) {
+				if(val.test(/<Table/)) {
 					item.description = val.replace(/<Table: \w+>/, item.description);	
 
 					item.page = table.page || item.page; // the old page is probably more useful here
@@ -420,7 +422,6 @@ var Tools = {
 					// special hack to switch modifier with # of missile ammo
 					if(new_table.type === 'missile_weapon') {
 						item.description = item.description.replace(/(\+\d) (\d+)/, "$2 $1");
-						console.log(item.description.match(/(+\d) (\d+)/));
 					}
 				}
 

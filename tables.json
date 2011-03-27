@@ -163,7 +163,7 @@
 		"3" : "+2 <Table: magic_melee>",
 		"4" : "+2 <Table: armor>",
 		"5" : "+2 <Table: magic_melee>",
-		"6" : "+1 <Table: magic_melee> with minor ability"
+		"6" : "+1 <Table: magic_melee> [with minor ability<Table: weapon_ability>]"
 	},
 
 	"major_weapon_armor" : {

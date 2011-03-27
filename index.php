@@ -37,9 +37,30 @@
 						<input type='radio' name='source[]' id='core' checked />
 						<label for='core'>Core Rules</label>
 					</td>
-					<td>
+					<td colspan="2">
 						<input type='checkbox' id='arcane' disabled />
-						<label for='arcane' style='font-size:.9em;'>Use Arcane Articles &amp; Items of Power [<a href="http://swcompanion.wdfiles.com/local--files/resources/mi">link</a>]</label>
+						<label for='arcane' style='font-size:.9em;'>Use Arcane Articles &amp; Items of Power [<a href="http://swcompanion.wdfiles.com/local--files/resources/mi">link</a>] at this frequency</label>
+						<select id='aaip_chance'>
+							<option value="25">25%</option>
+							<option value="30">30%</option>
+							<option value="35">35%</option>
+							<option value="40">40%</option>
+							<option value="45">45%</option>
+							<option value="50" selected>50%</option>
+							<option value="55">55%</option>
+							<option value="60">60%</option>
+							<option value="65">65%</option>
+							<option value="70">70%</option>
+							<option value="75">75%</option>
+						</select>
+					</td></tr>
+					<tr><td style='padding-right:10px;'>
+						<input type='radio' name='source[]' id='complete' disabled />
+						<label for='complete'>Complete Rules</label>
+					</td>
+					<td>
+						<input type='checkbox' id='describe_jewelry' disabled />
+						<label for='describe_jewelry'>Describe Gems/Jewelry/Art</label>
 					</td>
 					<td>
 						<select id='tradeout_chance'>
@@ -55,13 +76,11 @@
 						</select>
 						<label for='tradeout_chance'>Treasure Chance</label>
 					</td></tr>
-					<tr><td style='padding-right:10px;'>
-						<input type='radio' name='source[]' id='complete' disabled />
-						<label for='complete'>Complete Rules</label>
-					</td>
+				<tr>
+					<td></td>
 					<td>
-						<input type='checkbox' id='describe_jewelry' disabled />
-						<label for='describe_jewelry'>Describe Gems/Jewelry/Art</label>
+						<input type='checkbox' id='return_stingy' disabled />
+						<label for='return_stingy'>Return Small Tradeouts</label>
 					</td>
 					<td>
 						<select id='magic_item_chance'>
