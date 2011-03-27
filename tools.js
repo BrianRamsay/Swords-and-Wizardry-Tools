@@ -60,6 +60,22 @@ var Tools = {
 	},
 
 	add_events : function tools__add_events() {
+		$('total_gold').addEvent('keydown', function (e) {
+			if(e.key == 'enter') {
+				$('looter').fireEvent('click');
+				return;
+			}
+
+			if(e.key != 'backspace' &&
+			   e.key != 'delete' &&
+			   e.key != 'tab' &&
+			   !e.key.test(/^\d$/)) 
+			{
+				e.stop();	
+				return false;
+			}
+		}.bind(this));
+
 		$('magic_item_chance').addEvent('change', function () {
 			this.set_options();
 			this.modify_magic_item_chance('major');
