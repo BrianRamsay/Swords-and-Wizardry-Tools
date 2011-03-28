@@ -60,6 +60,27 @@ var Tools = {
 	},
 
 	add_events : function tools__add_events() {
+		$('help').dissolve({duration: 'short'});
+		$$('button').each(function(btn) {
+			btn.addEvent('mouseover', function() {
+				btn.addClass('over');
+			});
+			btn.addEvent('mouseout', function() {
+				btn.removeClass('over');
+			});
+
+			btn.addEvent('click', function() {
+				if(btn.id == 'expand') {
+					$(btn.parentNode).setStyle('display' , 'none');
+					$($('collapse').parentNode).setStyle('display' , 'block');
+					$('help').reveal();
+				} else {
+					$(btn.parentNode).setStyle('display' , 'none');
+					$($('expand').parentNode).setStyle('display' , 'block');
+					$('help').dissolve();
+				}
+			});
+		});
 		$('total_gold').addEvent('keydown', function (e) {
 			if(e.key == 'enter') {
 				$('looter').fireEvent('click');
@@ -167,7 +188,7 @@ var Tools = {
 
 	display_item_table : function tools__display_item_table(items) {
 		var list = $('list');
-		list.set('html', '');
+		list.set('html', '<tbody></tbody>');
 
 		//console.log(items);
 		if(items.length) {
@@ -226,7 +247,7 @@ var Tools = {
 				remove.appendChild(remove_img);
 				row.appendChild(remove);
 
-				list.appendChild(row)
+				list.firstChild.appendChild(row)
 			}.bind(this));
 		}
 	}, 
