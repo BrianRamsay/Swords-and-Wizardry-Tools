@@ -47,9 +47,9 @@ ul {
 
 ul.nav{
 	margin-top: 20px;
-    height:1.5em;
 	text-align:center;
     border-bottom:1px solid #a49264;
+	padding-bottom: 5px;
 }
 
 ul.nav li {
@@ -205,6 +205,7 @@ fieldset {
 #help p {
 	text-align:left;
 	margin: 0 0 10px 0;
+	text-indent: 0px;
 }
 
 #help .explanation {
@@ -231,7 +232,13 @@ fieldset {
 	font-size:.9em;
 }
 
+dl {
+	margin: 0;
+	padding: 0;
+}
+
 #help dd {
+	text-indent: 0px;
 	text-align:left;
 	margin: 0 0 10px 0;
 	font-size:.9em;

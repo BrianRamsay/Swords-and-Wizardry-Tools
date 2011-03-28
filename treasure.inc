@@ -85,6 +85,7 @@
 	<div class='column'>
 		<h4>Options</h4>
 
+		<dl>
 		<dt>Treasure Chance</dt>
 		<dd>Adjust the percentage chance that a tradeout will occur.  Default is 10%.</dd>
 
@@ -102,10 +103,12 @@
 
 		<dt class='unimplemented'>Core/Complete Rules</dt>
 		<dd class='unimplemented'>Determine the base ruleset and tables to use.  I have not purchased the Complete rules, so I don't know how much they differ from the Core rules.</dd>
+		</dl>
 	</div>
 	<div class='column'>
 		<h4>Usage</h4>
 		<p style='font-size:.9em'>The S&amp;W Core rules state that "endless series of 'another treasure worth 100 gp in total'" are boring, but endless series of "Gem or jewelry worth X gp in total" are not much better. Here are some tips for getting the right balance in your treasure, whether it is a local thug's stash or a dragon's hoard.</p>
+		<dl>
 		<dt>A small cache of magic items</dt>
 		<dd>Set Treasure Chance and Magic Item Chance to be high, but don't put a lot of gold in the pot (1000-4000). Turn on Return Small Tradeouts (or re-roll them individually).</dd>
 
@@ -117,6 +120,7 @@
 
 		<dt>General</dt>
 		<dd>Increasing Treasure Chance will reduce the overall gold amount and get more items out of a smaller amount of gold.  Alternatively, increasing the amount of gold results in the potential number of items increasing rapidly.</dd>
+		</dl>
 	</div>
 	<div class='explanation'>
 		<h4>Explanation</h4>
