@@ -10,8 +10,57 @@
 	<table>
 		<tr><td>
 			<input type='radio' name='source[]' id='core' checked />
-			<label for='core'>Core Rules</label>
+			<label for='core'>Core Rules [<a href="http://www.swordsandwizardry.com/?page_id=4">link</a>]</label>
 		</td>
+		<td>
+			<input type='checkbox' id='return_stingy' />
+			<label for='return_stingy'>Return Small Tradeouts</label>
+		</td>
+		<td>
+			<select id='tradeout_chance'>
+				<option value="10">10%</option>
+				<option value="15">15%</option>
+				<option value="20">20%</option>
+				<option value="25">25%</option>
+				<option value="30">30%</option>
+				<option value="35">35%</option>
+				<option value="40">40%</option>
+				<option value="45">45%</option>
+				<option value="50">50%</option>
+			</select>
+			<label for='tradeout_chance'>Treasure Chance</label>
+		</td></tr>
+		<tr><td style='padding-right:30px;'>
+			<input type='radio' name='source[]' id='complete' disabled />
+			<label for='complete'>Complete Rules</label>
+		</td>
+		<td>
+			<input type='checkbox' id='describe_jewelry' disabled />
+			<label for='describe_jewelry'>Describe Gems/Jewelry</label>
+		</td>
+		<td>
+			<select id='magic_item_chance'>
+				<option value="5">5%</option>
+				<option value="10">10%</option>
+				<option value="15">15%</option>
+				<option value="20">20%</option>
+				<option value="25">25%</option>
+				<option value="30">30%</option>
+				<option value="35">35%</option>
+				<option value="40">40%</option>
+				<option value="45">45%</option>
+				<option value="50">50%</option>
+				<option value="55">55%</option>
+				<option value="60">60%</option>
+				<option value="65">65%</option>
+				<option value="70">70%</option>
+				<option value="75">75%</option>
+				<option value="80">80%</option>
+			</select>
+			<label for='magic_item_chance'>Magic Item Chance</label>
+		</td></tr>
+	<tr>
+		<td></td>
 		<td colspan="2">
 			<input type='checkbox' id='arcane' disabled />
 			<label for='arcane' style='font-size:.9em;'>Use Arcane Articles &amp; Items of Power [<a href="http://swcompanion.wdfiles.com/local--files/resources/mi">link</a>] at this frequency</label>
@@ -29,53 +78,53 @@
 				<option value="75">75%</option>
 			</select>
 		</td></tr>
-		<tr><td style='padding-right:10px;'>
-			<input type='radio' name='source[]' id='complete' disabled />
-			<label for='complete'>Complete Rules</label>
-		</td>
-		<td>
-			<input type='checkbox' id='describe_jewelry' disabled />
-			<label for='describe_jewelry'>Describe Gems/Jewelry/Art</label>
-		</td>
-		<td>
-			<select id='tradeout_chance'>
-				<option value="10">10%</option>
-				<option value="15">15%</option>
-				<option value="20">20%</option>
-				<option value="25">25%</option>
-				<option value="30">30%</option>
-				<option value="35">35%</option>
-				<option value="40">40%</option>
-				<option value="45">45%</option>
-				<option value="50">50%</option>
-			</select>
-			<label for='tradeout_chance'>Treasure Chance</label>
-		</td></tr>
-	<tr>
-		<td></td>
-		<td>
-			<input type='checkbox' id='return_stingy' />
-			<label for='return_stingy'>Return Small Tradeouts</label>
-		</td>
-		<td>
-			<select id='magic_item_chance'>
-				<option value="5">5%</option>
-				<option value="10">10%</option>
-				<option value="15">15%</option>
-				<option value="20">20%</option>
-				<option value="25">25%</option>
-				<option value="30">30%</option>
-				<option value="35">35%</option>
-				<option value="40">40%</option>
-				<option value="45">45%</option>
-				<option value="50">50%</option>
-			</select>
-			<label for='magic_item_chance'>Magic Item Chance</label>
-		</td></tr>
 	</table>
 </fieldset>
 <div id='help' style='display:none'>
-	So here's the deal
+	<div id='sneaky_button'>&nbsp;&nbsp;</div>
+	<div class='column'>
+		<h4>Options</h4>
+
+		<dt>Treasure Chance</dt>
+		<dd>Adjust the percentage chance that a tradeout will occur.  Default is 10%.</dd>
+
+		<dt>Magic Item Chance</dt>
+		<dd>Adjust the percentage chance that a roll will hit the Magic Item tables instead of the Gem/Jewelry table.  Default is 5% (20 on d20).</dd>
+
+		<dt>Return Small Tradeouts</dt>
+		<dd>It can be annoying to have a tradeout valued less than the gold it is replacing.  Turn this option on to ignore Gem/Jewelry tradeouts worth less than the tradeout amount. The tradeout is not re-rolled.</dd>
+
+		<dt class='unimplemented'>Use Arcane Articles &amp; Items of Power</dt>
+		<dd class='unimplemented'>Use the AAIP supplement as well as the standard tables, and adjust the percentage of items chosen from it.  Default when turned on is 50%.</dd>
+
+		<dt class='unimplemented'>Describe Gem/Jewelry</dt>
+		<dd class='unimplemented'>A series of 'Gem/Jewelry worth X gp' isn't much more exciting than just gold pieces.  I like the treasure descriptions WotC put in the Draconomicon.</dd>
+
+		<dt class='unimplemented'>Core/Complete Rules</dt>
+		<dd class='unimplemented'>Determine the base ruleset and tables to use.  I have not purchased the Complete rules, so I don't know how much they differ from the Core rules.</dd>
+	</div>
+	<div class='column'>
+		<h4>Usage</h4>
+		<p style='font-size:.9em'>The S&amp;W Core rules state that "endless series of 'another treasure worth 100 gp in total'" are boring, but endless series of "Gem or jewelry worth X gp in total" are not much better. Here are some tips for getting the right balance in your treasure, whether it is a local thug's stash or a dragon's hoard.</p>
+		<dt>A small cache of magic items</dt>
+		<dd>Set Treasure Chance and Magic Item Chance to be high, but don't put a lot of gold in the pot (1000-4000). Turn on Return Small Tradeouts (or re-roll them individually).</dd>
+
+		<dt>A wealthy noble's safe</dt>
+		<dd>Set Treasure Chance to be high but Magic Item Chance to be low. Turn <b>off</b> Return Small Tradeouts and adjust the gold so the appropriate numbers of items show up (4800 is a sizeable amount).</dd>
+
+		<dt>Small hoard</dt>
+		<dd>Set Treasure Chance to be 20% or so and Magic Item Chance to be 40% or 50%. Adjust gold accordingly (23k?).</dd>
+
+		<dt>General</dt>
+		<dd>Increasing Treasure Chance will reduce the overall gold amount and get more items out of a smaller amount of gold.  Alternatively, increasing the amount of gold results in the potential number of items increasing rapidly.</dd>
+	</div>
+	<div class='explanation'>
+		<h4>Explanation</h4>
+		<p>In the spirit of endless randomization S&amp;W provides tables for treasure generation.
+		However, rolling through the many nested tables took forever, and I ended up just looking at the lists for a cool item or two every time I wanted to make a good treasure stash, which defeats the whole point. I also felt that even minor items were too scarce, and I wanted the ability to randomly create a truly rich hoard if the circumstances warranted.</p>
+		<p>S&amp;W uses 'tradeouts' to accomplish treasure generation, whereby gold amounts are swapped out (10% chance) for a roll on gem/jewelry and item tables.  I start with major tradeouts (5000gp), lowering the total gold amount if necessary, then calculate any medium tradeouts (1000gp), and then finish with the minor tradeouts (100gp).</p>
+		<p><b>Example for minor tradeouts:</b> If the total pot is 650gp, there are 6 rolls to determine if 100gp will be traded out.  Each successful (10%) roll lowers the total gold pot by 100gp and adds in a more interesting item.</p>
+	</div>
 </div>
 <div class="expand" id='help_button'>
 	<button id='expand'>
@@ -99,9 +148,15 @@
 		<b>Medium Tradeouts: <span id="medium_count">0</span></b><br />
 		<span class='key minor'>&nbsp;&nbsp;</span>
 		<b>Minor Tradeouts: <span id="minor_count">0</span></b>
+		<br />
+		<br />
+		<img src="images/remove.gif" /> Return a tradeout
+		<br />
+		<img src="images/refresh.png" /> Re-roll a tradeout
 	</div>
 	<div class='treasure'>
 		<h3>Gold: <span id='gold_left'></span></h3>
 		<table id='list'></table>
 	</div>
+	<div style='clear:both'></div>
 </div>

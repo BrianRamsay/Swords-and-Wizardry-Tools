@@ -81,6 +81,9 @@ var Tools = {
 				}
 			});
 		});
+		$('sneaky_button').addEvent('click', function() {
+			$('collapse').fireEvent('click');
+		});
 		$('total_gold').addEvent('keydown', function (e) {
 			if(e.key == 'enter') {
 				$('looter').fireEvent('click');

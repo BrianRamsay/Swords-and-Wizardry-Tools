@@ -16,28 +16,41 @@
 </script>
 </head>
 <body>
-	<ul class="nav">
-		<li class='selected'>Treasure</li>
-		<li>Monsters</li>
-		<li>Spells</li>
-	</ul>
-<div class='page_content'>
-	<ul class="content">
-		<li> <? include('treasure.inc'); ?> </li>
-		<li style='display:none'><h3>Nothing to see here, move along</h3></li>
-		<li style='display:none'><h3>Nothing to see here, move along</h3></li>
-	</ul>
-</div>
+	<div id='fixed_wrapper'>
+	<div id='fixed_content'>
+		<ul class="nav">
+			<li class='selected'>Treasure</li>
+			<li>Monsters</li>
+			<li>Spells</li>
+		</ul>
+		<div class='page_content'>
+			<ul class="content">
+				<li> <? include('treasure.inc'); ?> </li>
+				<li style='display:none'><h3>Nothing to see here, move along</h3></li>
+				<li style='display:none'><h3>Nothing to see here, move along</h3></li>
+			</ul>
+		</div>
+	</div>
+	<div class='footer'>
+	Created by <a href="http://foont.net">Brian Ramsay</a> | <a href="https://github.com/BrianRamsay/Swords-and-Wizardry-Tools">Code is on github</a> | <a href="README">License</a>
+	<br />
+	<br />
+	<a href='&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#114;&#105;&#97;&#110;&#64;&#102;&#111;&#111;&#110;&#116;&#46;&#110;&#101;&#116;' rel='nofollow'>Email me</a> at &#98;&#114;&#105;&#97;&#110;&#64;&#102;&#111;&#111;&#110;&#116;&#46;&#110;&#101;&#116; and let me know what you think. 
+	<br />
+	<br />
+	Thanks to Matthew Finch &amp; Mythmere Games
+	</div>
+	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.1/mootools-yui-compressed.js"></script>
-	<script src="mootools-more-1.3.1.1.js"></script>
-	<script src="tinytab.js"></script>
-	<script src="tools.js"></script>
+	<script src="js/mootools-more-1.3.1.1.js"></script>
+	<script src="js/tinytab.js"></script>
+	<script src="js/tools.js"></script>
 	<script>
 		$(window).addEvent('domready', function() {
 			tb = new TinyTab($$('ul.nav li'),$$('ul.content li'));
 			Tools.init();
 		});
 	</script>
-	<script src="ienotify.js"></script>
+	<script src="js/ienotify.js"></script>
 </body>
 </html>
