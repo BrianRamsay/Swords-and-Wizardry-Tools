@@ -43,7 +43,33 @@ var Tools = {
 			this.modify_magic_item_chance('minor');
 
 			$('total_gold').focus();
+			this.preload_images();
 		}.bind(this));
+	},
+
+	preload_images : function() {
+		var preload1 = new Image();
+		preload1.src = 'images/scroll.gif';
+		var preload11 = new Image();
+		preload11.src = 'images/potion.png';
+		var preload10 = new Image();
+		preload10.src = 'images/shield.gif';
+		var preload9 = new Image();
+		preload9.src = 'images/magic.gif';
+		var preload8 = new Image();
+		preload8.src = 'images/bow.png';
+		var preload7 = new Image();
+		preload7.src = 'images/sword.png';
+		var preload6 = new Image();
+		preload6.src = 'images/armor.png';
+		var preload5 = new Image();
+		preload5.src = 'images/ring.png';
+		var preload4 = new Image();
+		preload4.src = 'images/wand.png';
+		var preload3 = new Image();
+		preload3.src = 'images/staff.png';
+		var preload2 = new Image();
+		preload2.src = 'images/gem.png';
 	},
 
 	set_options : function tools__set_options() {
@@ -74,7 +100,7 @@ var Tools = {
 					$(btn.parentNode).setStyle('display' , 'none');
 					$($('collapse').parentNode).setStyle('display' , 'block');
 					$('help').reveal();
-				} else {
+				} else if(btn.id == 'collapse') {
 					$(btn.parentNode).setStyle('display' , 'none');
 					$($('expand').parentNode).setStyle('display' , 'block');
 					$('help').dissolve();
@@ -138,7 +164,11 @@ var Tools = {
 	*****************************************************************/
 
 	generate_loot : function tools__generate_loot() {
-		this.base_gold = parseInt($('total_gold').value.replace(',',''), 10);
+		this.base_gold = Math.max(0,parseInt($('total_gold').value.replace(',',''), 10));
+		if(!this.base_gold) {
+			this.base_gold = 0;
+			$('total_gold').focus();
+		}
 
 		this.calculate_tradeout(5000, 'major');
 		this.calculate_tradeout(1000, 'medium');
@@ -218,6 +248,7 @@ var Tools = {
 				//row.appendChild(source);
 
 				var reload = new Element('td');
+				reload.setStyle('width','20px');
 				var reload_img = new Element('img', {src : 'images/refresh.png', title: 'Reload'});
 				reload_img.addEvent('click', function() {
 					var new_item = roll_table(this.tables[item.tradeout + '_tradeout']);
@@ -229,6 +260,7 @@ var Tools = {
 				row.appendChild(reload);
 
 				var remove = new Element('td');
+				remove.setStyle('width','20px');
 				var remove_img = new Element('img', {src : 'images/remove.gif', title: 'Remove'});
 				remove_img.addEvent('click', function() {
 					switch(item.tradeout) {

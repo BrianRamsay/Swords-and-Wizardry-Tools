@@ -2,7 +2,7 @@
 <div class="treasure_actions">
 	<label>Enter Total Gold</label>
 	<input type='text' id='total_gold' />
-	<input type='button' value='Make Loot'  id='looter' />
+	<button id='looter'>Make Loot</button>
 </div>
 <span class='note'>S&amp;W rules recommend that treasure XP (gold) be 2-3 times greater than monster XP</span>
 <fieldset>
@@ -87,10 +87,10 @@
 
 		<dl>
 		<dt>Treasure Chance</dt>
-		<dd>Adjust the percentage chance that a tradeout will occur.  Default is 10%.</dd>
+		<dd>Adjusts the percentage chance that a tradeout will occur.  Default is 10%.</dd>
 
 		<dt>Magic Item Chance</dt>
-		<dd>Adjust the percentage chance that a roll will hit the Magic Item tables instead of the Gem/Jewelry table.  Default is 5% (20 on d20).</dd>
+		<dd>Adjusts the percentage chance that a roll will hit the Magic Item tables instead of the Gem/Jewelry table.  Default is 5% (20 on d20).</dd>
 
 		<dt>Return Small Tradeouts</dt>
 		<dd>It can be annoying to have a tradeout valued less than the gold it is replacing.  Turn this option on to ignore Gem/Jewelry tradeouts worth less than the tradeout amount. The tradeout is not re-rolled.</dd>
@@ -113,7 +113,7 @@
 		<dd>Set Treasure Chance and Magic Item Chance to be high, but don't put a lot of gold in the pot (1000-4000). Turn on Return Small Tradeouts (or re-roll them individually).</dd>
 
 		<dt>A wealthy noble's safe</dt>
-		<dd>Set Treasure Chance to be high but Magic Item Chance to be low. Turn <b>off</b> Return Small Tradeouts and adjust the gold so the appropriate numbers of items show up (4800 is a sizeable amount).</dd>
+		<dd>Set Treasure Chance to be high but Magic Item Chance to be low. Turn off Return Small Tradeouts and adjust the gold so the appropriate numbers of items show up (4800 is a sizeable amount).</dd>
 
 		<dt>Small hoard</dt>
 		<dd>Set Treasure Chance to be 20% or so and Magic Item Chance to be 40% or 50%. Adjust gold accordingly (23k?).</dd>
@@ -128,6 +128,7 @@
 		However, rolling through the many nested tables took forever, and I ended up just looking at the lists for a cool item or two every time I wanted to make a good treasure stash, which defeats the whole point. I also felt that even minor items were too scarce, and I wanted the ability to randomly create a truly rich hoard if the circumstances warranted.</p>
 		<p>S&amp;W uses 'tradeouts' to accomplish treasure generation, whereby gold amounts are swapped out (10% chance) for a roll on gem/jewelry and item tables.  I start with major tradeouts (5000gp), lowering the total gold amount if necessary, then calculate any medium tradeouts (1000gp), and then finish with the minor tradeouts (100gp).</p>
 		<p><b>Example for minor tradeouts:</b> If the total pot is 650gp, there are 6 rolls to determine if 100gp will be traded out.  Each successful (10%) roll lowers the total gold pot by 100gp and adds in a more interesting item.</p>
+		<p><b>Note:</b>I have tried to fill in everything I can (still working on spells), but it may be the case that you'd prefer to give your mage something he can use rather than have the only magic sword he has ever found be a Two-Handed Sword, for example.  Just about every time you see a specific weapon or armor you can assume I've just randomly chosen one, so you can switch it out for a different one without violating some inherent S&amp;W property.  I think this might not be quite the same for the Arcane Items supplement (there's a Swords table). You're the Referee, you make the call.</p>
 	</div>
 </div>
 <div class="expand" id='help_button'>

@@ -95,6 +95,28 @@ ul.content {
 	margin: 0 10px;
 }
 
+#looter {
+	background-image: -moz-linear-gradient(top,white,#bbb);
+	background-image: -webkit-gradient(linear,left top,left bottom,from(white),to(#bbb));
+	/*filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr=white,endColorStr=#bbb);*/
+	background-color: #bbb;
+	padding: 4px 20px;
+	cursor: pointer;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 2px groove threedface;
+	font-size: .8em;
+}
+
+#looter.over {
+	background-image: -moz-linear-gradient(top,#eee,#aaa);
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#eee),to(#aaa));
+	/*filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr=white,endColorStr=#bbb);*/
+	background-color: #bbb;
+	color: black;
+}
+
 fieldset {
 	margin: 0px;
 	margin-top:10px;
