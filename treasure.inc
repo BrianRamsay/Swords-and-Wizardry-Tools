@@ -1,6 +1,6 @@
 <?php ?>
 <div class="treasure_actions">
-	<label>Total Gold Value</label>
+	<label>Enter Total Gold</label>
 	<input type='text' id='total_gold' />
 	<input type='button' value='Make Loot'  id='looter' />
 </div>
