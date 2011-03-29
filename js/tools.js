@@ -22,6 +22,12 @@ var Tools = {
 	tables : {},
 	steps : [],
 
+	tradeout_amounts : {
+		'major' : 5000,
+		'medium' : 1000,
+		'minor' : 100
+	},
+
 	major_trade : [],
 	medium_trade : [],
 	minor_trade : [],
@@ -73,8 +79,11 @@ var Tools = {
 	},
 
 	set_options : function tools__set_options() {
-		this.tradeout_chance = $('tradeout_chance').options[$('tradeout_chance').selectedIndex].value;
-		this.magic_item_chance = $('magic_item_chance').options[$('magic_item_chance').selectedIndex].value;
+		var tradeout_box = $('tradeout_chance');
+		this.tradeout_chance = tradeout_box.options[tradeout_box.selectedIndex].value;
+
+		var magic_box = $('magic_item_chance');
+		this.magic_item_chance = magic_box.options[magic_box.selectedIndex].value;
 
 		this.return_small_tradeouts = $('return_stingy').checked;
 
@@ -86,7 +95,10 @@ var Tools = {
 	},
 
 	add_events : function tools__add_events() {
+		// set the duration on our dissolve effect for good
 		$('help').dissolve({duration: 'short'});
+
+		// show and hide the explanation text, adds hover effects to buttons
 		$$('button').each(function(btn) {
 			btn.addEvent('mouseover', function() {
 				btn.addClass('over');
@@ -107,9 +119,13 @@ var Tools = {
 				}
 			});
 		});
+
+		// my little hidden collapser button
 		$('sneaky_button').addEvent('click', function() {
 			$('collapse').fireEvent('click');
 		});
+
+		// validate and submit gold entry
 		$('total_gold').addEvent('keydown', function (e) {
 			if(e.key == 'enter') {
 				$('looter').fireEvent('click');
@@ -126,6 +142,16 @@ var Tools = {
 			}
 		}.bind(this));
 
+		// start treasure generation on button click
+		$('looter').addEvent('click', function() {
+			$('results').setStyle('display', 'none');
+			this.generate_loot();	
+			$('results').setStyle('display', 'block');
+		}.bind(this));
+
+		/*
+			Monitor various options for changes
+		*/
 		$('magic_item_chance').addEvent('change', function () {
 			this.set_options();
 			this.modify_magic_item_chance('major');
@@ -149,12 +175,6 @@ var Tools = {
 		$('return_stingy').addEvent('click', function () {
 			this.set_options();
 		}.bind(this));
-
-		$('looter').addEvent('click', function() {
-			$('results').setStyle('display', 'none');
-			this.generate_loot();	
-			$('results').setStyle('display', 'block');
-		}.bind(this));
 	},
 
 	/*****************************************************************
@@ -163,6 +183,11 @@ var Tools = {
 		Methods that drive the creation and display of a hoard.
 	*****************************************************************/
 
+	/*
+		Function: generate_loot
+		Reads the gold amount entered, calculates the treasure, and then displays
+		the treasure list.
+	*/
 	generate_loot : function tools__generate_loot() {
 		this.base_gold = Math.max(0,parseInt($('total_gold').value.replace(',',''), 10));
 		if(!this.base_gold) {
@@ -170,31 +195,49 @@ var Tools = {
 			$('total_gold').focus();
 		}
 
-		this.calculate_tradeout(5000, 'major');
-		this.calculate_tradeout(1000, 'medium');
-		this.calculate_tradeout(100, 'minor');
+		this.calculate_tradeout('major');
+		this.calculate_tradeout('medium');
+		this.calculate_tradeout('minor');
 
 		this.display_loot();
 	},
 
-	calculate_tradeout : function(gold_amount, which) {
-		this[which + '_trade'] = Array.from([]);
+	/*
+		Function: calculate_tradeout
+		Given the type of tradeout ('major', 'medium', or 'minor'), randomize 
+		the item tradeouts and add to the relevant array (e.g. this.minor_tradeout).
+	*/
+	calculate_tradeout : function(which) {
+		var item_array = Array.from([]);
+		var gold_amount = this.tradeout_amounts[which];
+
 		var trade_chances = Math.floor(this.base_gold / gold_amount);
 		for(var i =0; i < trade_chances; i++) {
 			if(rand_int(100) <= this.tradeout_chance) {
+
 				var item = roll_table(this.tables[which + '_tradeout']);
+
+				// if they don't want small treasure amounts, don't add the item
 				if(this.return_small_tradeouts && 
 				   item.type == 'gem' && 
 				   item.sort < gold_amount) 
 				{
 					continue;
 				}
+
+				// we have an item we want
 				this.base_gold -= gold_amount;
-				this[which + '_trade'].push(item);
+				item_array.push(item);
 			}
 		}
+		this[which + '_trade'] = item_array;
 	},
 
+	/*
+		Function: display_loot
+		Combines the three tradeout arrays into one items array, sorts it, 
+		and calls <display_item_table> to output the list.
+	*/
 	display_loot : function tools__display_loot() {
 		
 		$('gold_left').set('text', this.base_gold);
@@ -210,6 +253,11 @@ var Tools = {
 		this.display_item_table(items);
 	},
 
+	/*
+		Function: add_tradeout_items
+		Given an item list and the tradeout type ('major', 'medium', or 'minor'),
+		adds the tradeout items to the item list and displays the count on the page.
+	*/
 	add_tradeout_items : function tools__add_tradeout_items(items, which) {
 		var tradeout_items = this[which + '_trade'];
 		$(which + '_count').set('text', tradeout_items.length);
@@ -219,6 +267,10 @@ var Tools = {
 		});
 	},
 
+	/*
+		Function: display_item_table
+		Show a row in the results table for each item.
+	*/
 	display_item_table : function tools__display_item_table(items) {
 		var list = $('list');
 		list.set('html', '<tbody></tbody>');
@@ -229,6 +281,7 @@ var Tools = {
 				var row = new Element('tr');
 				row.addClass(idx % 2 ? 'odd' : 'even');
 
+				// Show color indicating which tradeout
 				var type = new Element('td', {
 					'class' : item.tradeout,
 					'html' : '&nbsp;'
@@ -236,58 +289,85 @@ var Tools = {
 				type.addClass('key');
 				row.appendChild(type);
 
-				var type = new Element('td', { 'class' : 'type' });
-				type.setStyle('width', '25px');
-				type.set('html', this.image_from_type(item));
-				row.appendChild(type);
+				// Show an image indicating the type of item	
+				var item_type = new Element('td', { 'class' : 'type' });
+				item_type.setStyle('width', '25px');
+				item_type.set('html', this.make_image_from_type(item));
+				row.appendChild(item_type);
 
+				// Describe the item
 				var desc = new Element('td', {'html' : item.description});
 				row.appendChild(desc);
 
 				//var source = new Element('td', {'html' : item.source});
 				//row.appendChild(source);
 
+				// Give the ability to re-roll a tradeout
 				var reload = new Element('td');
 				reload.setStyle('width','20px');
-				var reload_img = new Element('img', {src : 'images/refresh.png', title: 'Reload'});
-				reload_img.addEvent('click', function() {
-					var new_item = roll_table(this.tables[item.tradeout + '_tradeout']);
-					items.splice(idx, 1, new_item);
-					desc.set('html', new_item.description);
-					type.set('html', this.image_from_type(new_item));
-				}.bind(this));
-				reload.appendChild(reload_img);
+				reload.appendChild(this.make_reload_img_element(items, idx, desc, item_type));
 				row.appendChild(reload);
 
+				// Give the ability to return an item to the gold pool
 				var remove = new Element('td');
 				remove.setStyle('width','20px');
-				var remove_img = new Element('img', {src : 'images/remove.gif', title: 'Remove'});
-				remove_img.addEvent('click', function() {
-					switch(item.tradeout) {
-						case 'major':
-							mod_amt = 5000;
-							break;
-						case 'medium':
-							mod_amt = 1000;
-							break;
-						case 'minor':
-							mod_amt = 100;
-							break;
-					}
-					this.base_gold += mod_amt;
-					$('gold_left').set('text', this.base_gold);
-					items.splice(idx, 1);
-					this.display_item_table(items);
-				}.bind(this));
-				remove.appendChild(remove_img);
+				remove.appendChild(this.make_remove_img_element(items, idx));
 				row.appendChild(remove);
 
 				list.firstChild.appendChild(row)
 			}.bind(this));
+		} else {
+			// nothing there
+			var row = new Element('tr');
+			var cell = new Element('td');
+			cell.setStyle('text-align', 'center');
+			cell.set('text', "There were no tradeouts. Try again if you want.");
+			row.appendChild(cell);
+			list.firstChild.appendChild(row)
 		}
 	}, 
 
-	image_from_type : function(item) {
+	/*
+		Function: make_reload_img_element
+		Create an img element and attach an event to re-roll a tradeout item.
+	*/
+	make_reload_img_element : function(item_list, index, description_cell, item_type_cell) {
+		var reload_img = new Element('img', {src : 'images/refresh.png', title: 'Reload'});
+		var tradeout_table = this.tables[item_list[index].tradeout + '_tradeout'];
+
+		reload_img.addEvent('click', function() {
+			var new_item = roll_table(tradeout_table);
+			item_list.splice(index, 1, new_item);
+			description_cell.set('html', new_item.description);
+			item_type_cell.set('html', this.make_image_from_type(new_item));
+		}.bind(this));
+
+		return reload_img;
+	},
+
+	/*
+		Function: make_remove_img_element
+		Create an img element and attach an event to remove an item and return
+		the tradeout gold.
+	*/
+	make_remove_img_element : function(item_list, index) {
+		var remove_img = new Element('img', {src : 'images/remove.gif', title: 'Remove'});
+		var mod_amt = this.tradeout_amounts[item_list[index].tradeout];
+		remove_img.addEvent('click', function() {
+			this.base_gold += mod_amt;
+			$('gold_left').set('text', this.base_gold);
+			item_list.splice(index, 1);
+			this.display_item_table(item_list);
+		}.bind(this));
+
+		return remove_img;
+	},
+
+	/*
+		Function: make_image_from_type
+		Create an html string for an image element based on the item type.
+	*/
+	make_image_from_type : function(item) {
 		switch(item.type) {
 			case 'scroll':
 				filename = 'scroll.gif';
