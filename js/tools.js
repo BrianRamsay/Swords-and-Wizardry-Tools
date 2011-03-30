@@ -125,20 +125,11 @@ var Tools = {
 			$('collapse').fireEvent('click');
 		});
 
-		// validate and submit gold entry
+		// submit gold entry
 		$('total_gold').addEvent('keydown', function (e) {
 			if(e.key == 'enter') {
 				$('looter').fireEvent('click');
 				return;
-			}
-
-			if(e.key != 'backspace' &&
-			   e.key != 'delete' &&
-			   e.key != 'tab' &&
-			   !e.key.test(/^\d$/)) 
-			{
-				e.stop();	
-				return false;
 			}
 		}.bind(this));
 
@@ -189,11 +180,13 @@ var Tools = {
 		the treasure list.
 	*/
 	generate_loot : function tools__generate_loot() {
-		this.base_gold = Math.max(0,parseInt($('total_gold').value.replace(',',''), 10));
+		var gold = $('total_gold').value.replace(/[a-zA-Z\.\,]/g, '');
+		this.base_gold = Math.max(0,parseInt(gold));
 		if(!this.base_gold) {
 			this.base_gold = 0;
 			$('total_gold').focus();
 		}
+		$('total_gold').value = this.base_gold;
 
 		this.calculate_tradeout('major');
 		this.calculate_tradeout('medium');
