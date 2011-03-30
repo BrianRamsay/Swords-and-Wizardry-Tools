@@ -62,7 +62,7 @@
 	<tr>
 		<td></td>
 		<td colspan="2">
-			<input type='checkbox' id='arcane' disabled />
+			<input type='checkbox' id='arcane' />
 			<label for='arcane' style='font-size:.9em;'>Use Arcane Articles &amp; Items of Power [<a href="http://swcompanion.wdfiles.com/local--files/resources/mi">link</a>] at this frequency</label>
 			<select id='aaip_chance' disabled>
 				<option value="25">25%</option>
@@ -95,8 +95,8 @@
 		<dt>Return Small Tradeouts</dt>
 		<dd>It can be annoying to have a tradeout valued less than the gold it is replacing.  Turn this option on to ignore Gem/Jewelry tradeouts worth less than the tradeout amount. The tradeout is not re-rolled.</dd>
 
-		<dt class='unimplemented'>Use Arcane Articles &amp; Items of Power</dt>
-		<dd class='unimplemented'>Use the AAIP supplement as well as the standard tables, and adjust the percentage of items chosen from it.  Default when turned on is 50%.</dd>
+		<dt>Use Arcane Articles &amp; Items of Power</dt>
+		<dd>Use the AAIP supplement as well as the standard tables, and adjust the percentage of items chosen from it.  Default when turned on is 50%.</dd>
 
 		<dt class='unimplemented'>Describe Gem/Jewelry</dt>
 		<dd class='unimplemented'>A series of 'Gem/Jewelry worth X gp' isn't much more exciting than just gold pieces.  I like the treasure descriptions WotC put in the Draconomicon.</dd>
