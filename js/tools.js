@@ -289,7 +289,7 @@ var Tools = {
 				row.appendChild(item_type);
 
 				// Describe the item
-				var desc = new Element('td', {'html' : item.description});
+				var desc = new Element('td', {'html' : this.make_item_description(item)});
 				row.appendChild(desc);
 
 				//var source = new Element('td', {'html' : item.source});
@@ -319,6 +319,27 @@ var Tools = {
 			list.firstChild.appendChild(row)
 		}
 	}, 
+
+	/*
+		Function: make_item_description
+		Describe the item, including a hover of where it can be found
+	*/
+	make_item_description : function(item) {
+		if(item.type == 'gem') {
+			return item.description;
+		}
+
+		var source = 'Core Rules';
+		if(item.source == 'AAIP') {
+			source = 'Arcane Articles &amp; Items of Power';
+		}
+		if(item.page) {
+			source += ' page ' + item.page;
+		}
+
+		return '<acronym title="' + source + '">' + item.description + '</acronym>';
+	},
+
 
 	/*
 		Function: make_reload_img_element
@@ -628,12 +649,12 @@ var Tools = {
 		}.bind(this);
 	},
 
-	make_item : function tools__make_item(table, desc, sort, page) {
+	make_item : function tools__make_item(table, desc, sort) {
 		var item = {description: desc, 
 					type: table.type + '', 
 					sort: sort, 
 					source: table.source, 
-					page : page};
+					page : table.page};
 		return this.special_processing(item);
 	},
 

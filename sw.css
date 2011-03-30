@@ -36,6 +36,10 @@ body div.page_content {
 	margin:auto;
 }
 
+acronym {
+	border-bottom: 1px dashed green;
+}
+
 ul li {
 	list-style:none;
 }
