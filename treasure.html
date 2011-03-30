@@ -1,8 +1,7 @@
-<?php ?>
 <div class="treasure_actions">
 	<label>Enter Total Gold</label>
 	<input type='text' id='total_gold' />
-	<button id='looter'>Make Loot</button>
+	<button class='button' id='looter'>Make Loot</button>
 </div>
 <span class='note'>S&amp;W rules recommend that treasure XP (gold) be 2-3 times greater than monster XP</span>
 <fieldset>
@@ -164,4 +163,18 @@
 		<table id='list'></table>
 	</div>
 	<div style='clear:both'></div>
+</div>
+<div class='other_actions'>
+	<div>
+		<label>Get Single Tradeout</label>
+		<br />
+		<button class="single_tradeout button">Major</button>
+		<button class="single_tradeout button">Medium</button>
+		<button class="single_tradeout button">Minor</button>
+	</div>
+	<table>
+		<tr><td id='single_item_image' style='width: 20px;'></td>
+			<td id='single_item_description'></td>
+		</tr>
+	</table>
 </div>

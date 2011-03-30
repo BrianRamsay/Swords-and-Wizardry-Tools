@@ -140,6 +140,16 @@ var Tools = {
 			$('results').setStyle('display', 'block');
 		}.bind(this));
 
+		// get single tradeout items
+		$$('.single_tradeout').each(function(button) {
+			button.addEvent('click', function(e) {
+				var tradeout = e.target.get('text').toLowerCase();
+				var item = roll_table(this.tables[tradeout + '_tradeout']);
+				$('single_item_image').set('html', this.make_image_from_type(item));
+				$('single_item_description').set('html', this.make_item_description(item));
+			}.bind(this));
+		}.bind(this));
+
 		/*
 			Monitor various options for changes
 		*/

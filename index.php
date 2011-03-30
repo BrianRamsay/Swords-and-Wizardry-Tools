@@ -25,7 +25,7 @@
 		</ul>
 		<div class='page_content'>
 			<ul class="content">
-				<li> <? include('treasure.inc'); ?> </li>
+				<li> <? include('treasure.html'); ?> </li>
 				<li style='display:none'><h3>Nothing to see here, move along</h3></li>
 				<li style='display:none'><h3>Nothing to see here, move along</h3></li>
 			</ul>
