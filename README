@@ -1,15 +1,14 @@
-Updates by Michael Shorten / chgowiz - 3/6/2023
+Updates by Michael Shorten / chgowiz and Stephen Faure - 3/6/2023
 
 * Adding functionality from Swords & Wizardry White Box, 3rd printing:
   - Enter starting value of XP, instead of gp
   - Calculate the multiplier factor of how much gp to give (XP * n). N is from S&W WB, Chap 9, pg 85, Table 29: Treasure Values
   - Using the same table, break out the remaining gp (after tradeouts) into a coin haul that includes copper (cp), silver (sp) and gold. 
 
-* Updated code to (some) PHP8 standards.
+* Included Stephen Faure's fork, which converts the page to pure JavaScript instead of PHP.
 
-
-My updates are made under the same Tools License (BSD) as given below. 
-I am not affiliated with Marv Brieg, Matthew J. Finch or Mythmere Games.
+Our (Stephen's and my) updates are made under the same Tools License (BSD) as given below. 
+We are not affiliated with Marv Brieg, Matthew J. Finch or Mythmere Games.
 Swords & Wizardry, White Box is authored by Marv Brieg. Swords & Wizardry is copyright 2008 by Matthew J. Finch
 
 Original README follows
