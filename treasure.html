@@ -1,9 +1,11 @@
 <div class="treasure_actions">
-	<label>Enter Total Gold</label>
-	<input type='text' id='total_gold' />
+	<label>Enter Total XP to generate treasure against:</label>
+	<input type='text' id='total_xp' />
 	<button class='button' id='looter'>Make Loot</button>
 </div>
-<span class='note'>S&amp;W rules recommend that treasure XP (gold) be 2-3 times greater than monster XP</span>
+<span class='note'>Treasure generated will be from 1x to 4x the amount of XP (in gp)</span>
+<p>
+<span id="goldfromxp"></span>				 
 <fieldset>
 	<legend>Options</legend>
 	<table>
@@ -159,7 +161,7 @@
 		<img src="images/refresh.png" /> Re-roll a tradeout
 	</div>
 	<div class='treasure'>
-		<h3>Gold: <span id='gold_left'></span></h3>
+		<b>CP:</b> <span id='copper_left'></span> <b>SP:</b> <span id='silver_left'></span> <b>GP:</b> <span id='gold_left'></span><br/><br/>
 		<table id='list'></table>
 	</div>
 	<div style='clear:both'></div>

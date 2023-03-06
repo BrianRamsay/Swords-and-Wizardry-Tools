@@ -25,17 +25,15 @@
 		</ul>
 		<div class='page_content'>
 			<ul class="content">
-				<li> <? include('treasure.html'); ?> </li>
+				<li> <?php include('treasure.html'); ?> </li>
 				<li style='display:none'><h3>Nothing to see here, move along</h3></li>
 				<li style='display:none'><h3>Nothing to see here, move along</h3></li>
 			</ul>
 		</div>
 	</div>
 	<div class='footer'>
-	Created by <a href="http://foont.net">Brian Ramsay</a> | <a href="https://github.com/BrianRamsay/Swords-and-Wizardry-Tools">Code is on github</a> | <a href="README">License</a>
-	<br />
-	<br />
-	<a href='&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#114;&#105;&#97;&#110;&#64;&#102;&#111;&#111;&#110;&#116;&#46;&#110;&#101;&#116;' rel='nofollow'>Email me</a> at &#98;&#114;&#105;&#97;&#110;&#64;&#102;&#111;&#111;&#110;&#116;&#46;&#110;&#101;&#116; and let me know what you think. 
+	Updates by <a href="https://chgowiz-games.blogspot.com/">Michael S / chgowiz</a> | <a href="https://github.com/Chgowiz/Swords-and-Wizardry-Tools-chgowiz">Fork is on github</a> | <a href=""><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#104;&#103;&#111;&#119;&#105;&#122;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;" rel='nofollow'>Email me</a> at  &#99;&#104;&#103;&#111;&#119;&#105;&#122;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109; with questions!
+	<br/><br/>Created by <a href="http://foont.net">Brian Ramsay</a> | <a href="https://github.com/BrianRamsay/Swords-and-Wizardry-Tools">Code is on github</a> | <a href="README">License</a> |&nbsp;<a href='&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#114;&#105;&#97;&#110;&#64;&#102;&#111;&#111;&#110;&#116;&#46;&#110;&#101;&#116;' rel='nofollow'>Email me</a> at &#98;&#114;&#105;&#97;&#110;&#64;&#102;&#111;&#111;&#110;&#116;&#46;&#110;&#101;&#116; and let me know what you think. 
 	<br />
 	<br />
 	Thanks to Matthew Finch &amp; Mythmere Games

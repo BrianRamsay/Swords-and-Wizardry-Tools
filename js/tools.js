@@ -39,6 +39,8 @@ var Tools = {
 	return_small_tradeouts: false, 
 	use_arcane_chance: 0,  // % chance of using Arcane Articles and Items of Power
 
+	xp_factor : 0,	// determines how much gold to give and in what proportions
+
 	init : function tools__init() {
 		this.set_options();
 		this.make_tables(function() {
@@ -48,7 +50,7 @@ var Tools = {
 			this.modify_magic_item_chance('medium');
 			this.modify_magic_item_chance('minor');
 
-			$('total_gold').focus();
+			$('total_xp').focus();
 			this.preload_images();
 		}.bind(this));
 	},
@@ -126,7 +128,7 @@ var Tools = {
 		});
 
 		// submit gold entry
-		$('total_gold').addEvent('keydown', function (e) {
+		$('total_xp').addEvent('keydown', function (e) {
 			if(e.key == 'enter') {
 				$('looter').fireEvent('click');
 				return;
@@ -190,13 +192,24 @@ var Tools = {
 		the treasure list.
 	*/
 	generate_loot : function tools__generate_loot() {
-		var gold = $('total_gold').value.replace(/[a-zA-Z\.\,]/g, '');
-		this.base_gold = Math.max(0,parseInt(gold));
+
+		//MES - changes for supporting using xp and factor to get gold amt
+		// var gold = $('total_gold').value.replace(/[a-zA-Z\.\,]/g, '');
+		// this.base_gold = Math.max(0,parseInt(gold));
+		var xp = $('total_xp').value.replace(/[a-zA-Z\.\,]/g, '');
+		xp = Math.max(0,parseInt(xp));
+
+		this.xp_factor = this.get_xp_factor();
+		this.base_gold = this.xp_factor * xp;
+		//MES
+		
 		if(!this.base_gold) {
 			this.base_gold = 0;
-			$('total_gold').focus();
+			$('total_xp').focus();
 		}
-		$('total_gold').value = this.base_gold;
+		//MES - changes for supporting using xp and factor to get gold amt
+		// $('total_gold').value = this.base_gold;
+		$('goldfromxp').set('text', ''.concat(this.base_gold, 'gp is awarded from ', xp, ' XP (x', this.xp_factor, ')'));
 
 		this.calculate_tradeout('major');
 		this.calculate_tradeout('medium');
@@ -236,6 +249,33 @@ var Tools = {
 		this[which + '_trade'] = item_array;
 	},
 
+    /* 	Function: calc_gold_from_xp
+		Determines how much gp is awarded for the given XP.
+		Uses SW White Box 3rd printing rules from p85
+		MES 2/22/23
+	*/
+	get_xp_factor : function(xp){
+		var result = roll(1,6);
+		var ret = 0;
+		switch (result) {
+			case 1:
+				ret = 1;
+				break;
+			case 2:
+			case 3:
+				ret = 2;
+				break;
+			case 4:
+			case 5:
+				ret = 3;
+				break;
+			case 6:
+				ret = 4;
+				break;
+		}
+		
+		return ret;
+	},
 	/*
 		Function: display_loot
 		Combines the three tradeout arrays into one items array, sorts it, 
@@ -243,7 +283,9 @@ var Tools = {
 	*/
 	display_loot : function tools__display_loot() {
 		
-		$('gold_left').set('text', this.base_gold);
+		//MES displays the coins broken down per the xp factor
+		this.display_coins_left(this.base_gold,this.xp_factor);
+		
 		var items = [];
 		this.add_tradeout_items(items, 'major');
 		this.add_tradeout_items(items, 'medium');
@@ -329,6 +371,45 @@ var Tools = {
 			list.firstChild.appendChild(row)
 		}
 	}, 
+
+	/* 	Function: display_coins_left
+		Determines and displays the coins broken down into 
+		cp, sp and gp, using the xp factor.
+		Uses SW White Box 3rd printing rules from p85
+		MES 2/22/23
+	*/
+	display_coins_left : function(gold,xp_factor){
+		var cp_x = 0;
+		var sp_x = 0;
+		var gp_x = 0;
+		
+		switch (xp_factor) {
+			case 1:
+				cp_x = .5;
+				sp_x = .3;
+				gp_x = .2;
+				break;
+			case 2:
+				cp_x = .2;
+				sp_x = .5;
+				gp_x = .3;
+				break;
+			case 3:
+				cp_x = .1;
+				sp_x = .4;
+				gp_x = .5;
+				break;
+			case 4:
+				cp_x = 0;
+				sp_x = .25;
+				gp_x = .75;
+				break;
+		}
+		
+		$('copper_left').set('text', (Math.round(cp_x * gold)*100).toLocaleString("en-US"));
+		$('silver_left').set('text', (Math.round(sp_x * gold)*10).toLocaleString("en-US"));
+		$('gold_left').set('text', Math.round(gp_x * gold).toLocaleString("en-US"));
+	},
 
 	/*
 		Function: make_item_description
