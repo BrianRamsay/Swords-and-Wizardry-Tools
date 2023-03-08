@@ -1,11 +1,14 @@
-Updates by Michael Shorten / chgowiz and Stephen Faure - 3/6/2023
+Updates by Michael Shorten / chgowiz and Stephen Faure - 3/8/2023
 
 * Adding functionality from Swords & Wizardry White Box, 3rd printing:
   - Enter starting value of XP, instead of gp
   - Calculate the multiplier factor of how much gp to give (XP * n). N is from S&W WB, Chap 9, pg 85, Table 29: Treasure Values
   - Using the same table, break out the remaining gp (after tradeouts) into a coin haul that includes copper (cp), silver (sp) and gold. 
 
-* Included Stephen Faure's fork, which converts the page to pure JavaScript instead of PHP.
+* Includes Stephen Faure's fork, which converts the page to pure JavaScript instead of PHP.
+
+* Added a "gems/jewelry total" line that gives a gp sum of the gems/jewelry in the haul. Useful for seeing what the XP value of the haul 
+  will be! It auto-adjusts if you reroll the tradeout, or remove the tradeout. If removed, the total coin haul is updated as well.
 
 Our (Stephen's and my) updates are made under the same Tools License (BSD) as given below. 
 We are not affiliated with Marv Brieg, Matthew J. Finch or Mythmere Games.
