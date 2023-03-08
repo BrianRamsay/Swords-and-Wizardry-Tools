@@ -159,7 +159,7 @@ fieldset {
 #results {
 	border-top: 1px dashed #b1a37e;
 	border-bottom: 1px dashed #b1a37e;
-	margin: 20px 0;
+	margin: 20px 0 0 0;
 	padding-left: 10px;
 }
 
@@ -335,4 +335,11 @@ button img {
 	/*filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr=white,endColorStr=#bbb);*/
 	background-color: #bbb;
 	color: black;
+}
+
+.gemsjewelry_total {
+	text-align: left; 
+	margin: 5px 0 0 40px; 
+	font-size: 16px; 
+	font-weight: 100;
 }
