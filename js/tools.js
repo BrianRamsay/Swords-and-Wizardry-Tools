@@ -34,6 +34,9 @@ var Tools = {
 
 	base_gold : 0,
 
+	gj_total : 0,  //MES 3/7/23
+	gj_re : new RegExp("[0-9]+"),   //MES 3/7/23
+
 	tradeout_chance: 10, // % chance
 	magic_item_chance: 5, // % chance
 	return_small_tradeouts: false, 
@@ -201,7 +204,8 @@ var Tools = {
 
 		this.xp_factor = this.get_xp_factor();
 		this.base_gold = this.xp_factor * xp;
-		//MES
+		
+		this.gj_total = 0;   //MES 3/7/23 - reset the total
 		
 		if(!this.base_gold) {
 			this.base_gold = 0;
@@ -276,6 +280,11 @@ var Tools = {
 		
 		return ret;
 	},
+
+	display_gj_total : function () {
+		$('gems_jewelry_total').set('text', ''.concat('Total of gems/jewelry: ', this.gj_total, 'gp.'));
+	},
+
 	/*
 		Function: display_loot
 		Combines the three tradeout arrays into one items array, sorts it, 
@@ -285,6 +294,7 @@ var Tools = {
 		
 		//MES displays the coins broken down per the xp factor
 		this.display_coins_left(this.base_gold,this.xp_factor);
+		this.display_gj_total(); //MES 3/7/23
 		
 		var items = [];
 		this.add_tradeout_items(items, 'major');
@@ -442,9 +452,16 @@ var Tools = {
 
 		reload_img.addEvent('click', function() {
 			var new_item = roll_table(tradeout_table);
-			item_list.splice(index, 1, new_item);
+			removed_item = item_list.splice(index, 1, new_item);    //MES 3/7/23
+
 			description_cell.set('html', new_item.description);
 			item_type_cell.set('html', this.make_image_from_type(new_item));
+
+			// MES 3/7/23 - new value of gem was added when new item rolled.
+			this.gj_total -= this.gj_re.exec(removed_item[0].description)[0];
+			this.display_gj_total();
+			// MES 3/7/23						
+			
 		}.bind(this));
 
 		return reload_img;
@@ -460,8 +477,17 @@ var Tools = {
 		var mod_amt = this.tradeout_amounts[item_list[index].tradeout];
 		remove_img.addEvent('click', function() {
 			this.base_gold += mod_amt;
-			$('gold_left').set('text', this.base_gold);
-			item_list.splice(index, 1);
+			// MES 3/7/23 $('gold_left').set('text', this.base_gold);
+			this.display_coins_left(this.base_gold,this.xp_factor);  // MES 3/7/23 
+
+			removed_item = item_list.splice(index, 1);
+
+			// MES 3/7/23
+			console.log(this.gj_re.exec(removed_item[0].description)[0]);
+			this.gj_total -= this.gj_re.exec(removed_item[0].description)[0];
+			this.display_gj_total();
+			// MES 3/7/23 
+			
 			this.display_item_table(item_list);
 		}.bind(this));
 
@@ -615,6 +641,7 @@ var Tools = {
 				var calc_func = this.parse_gold(val);
 				return function gem_jewelry_map() { 
 					var amt = calc_func();
+					this.gj_total += amt;	//MES 3/7/23
 					return this.make_item(table, 'Gem or jewelry worth ' +  amt + ' gp', amt);
 				}.bind(this);
 				break;
