@@ -282,7 +282,11 @@ var Tools = {
 	},
 
 	display_gj_total : function () {
-		$('gems_jewelry_total').set('text', ''.concat('Total of gems/jewelry: ', this.gj_total, 'gp.'));
+		$('gems_jewelry_total').set('text', ''.concat('Total of gems/jewelry: ', Number(this.gj_total).toLocaleString(), ' gp.'));
+	},
+
+	display_haul_total : function () {
+		$('haul_total').set('text', ''.concat('Total haul: ', Number(this.base_gold + this.gj_total).toLocaleString(), ' gp.'));
 	},
 
 	/*
@@ -295,6 +299,7 @@ var Tools = {
 		//MES displays the coins broken down per the xp factor
 		this.display_coins_left(this.base_gold,this.xp_factor);
 		this.display_gj_total(); //MES 3/7/23
+		this.display_haul_total();  //MES 3/8/23
 		
 		var items = [];
 		this.add_tradeout_items(items, 'major');
@@ -416,9 +421,9 @@ var Tools = {
 				break;
 		}
 		
-		$('copper_left').set('text', (Math.round(cp_x * gold)*100).toLocaleString("en-US"));
-		$('silver_left').set('text', (Math.round(sp_x * gold)*10).toLocaleString("en-US"));
-		$('gold_left').set('text', Math.round(gp_x * gold).toLocaleString("en-US"));
+		$('copper_left').set('text', (Math.round(cp_x * gold)*100).toLocaleString());
+		$('silver_left').set('text', (Math.round(sp_x * gold)*10).toLocaleString());
+		$('gold_left').set('text', Math.round(gp_x * gold).toLocaleString());
 	},
 
 	/*
@@ -460,6 +465,7 @@ var Tools = {
 			// MES 3/7/23 - new value of gem was added when new item rolled.
 			this.gj_total -= this.gj_re.exec(removed_item[0].description)[0];
 			this.display_gj_total();
+			this.display_haul_total();  //MES 3/8/23
 			// MES 3/7/23						
 			
 		}.bind(this));
@@ -486,6 +492,7 @@ var Tools = {
 			console.log(this.gj_re.exec(removed_item[0].description)[0]);
 			this.gj_total -= this.gj_re.exec(removed_item[0].description)[0];
 			this.display_gj_total();
+			this.display_haul_total();  //MES 3/8/23
 			// MES 3/7/23 
 			
 			this.display_item_table(item_list);
